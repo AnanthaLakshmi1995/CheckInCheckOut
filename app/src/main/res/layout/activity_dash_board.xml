@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/gradient"
+
+    tools:context=".DashBoardActivity">
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="match_parent"
+        android:layout_height="79dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="DashBoard"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/Admin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Admin"
+        android:layout_gravity="center"
+        android:layout_marginTop="85dp"
+        app:backgroundTint="#81D4FA"
+        android:textColor="@color/black"/>
+
+    <Button
+        android:id="@+id/User"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="User"
+        android:layout_gravity="center"
+        app:backgroundTint="#81D4FA"
+        android:textColor="@color/black"/>
+    <Button
+        android:id="@+id/CheckinCheckout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Check in/ Ckeckout"
+        app:backgroundTint="#81D4FA"
+        android:textColor="@color/black"/>
+
+</LinearLayout>

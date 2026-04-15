@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="25dp"
+    android:background="@drawable/gradient"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text="User Registration"
+        android:textAlignment="center"
+        android:textColor="@android:color/black"
+        android:textSize="35dp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/UserName"
+        android:hint="Full Name"
+        android:layout_marginTop="45dp"
+        android:layout_width="match_parent"
+        android:drawableStart="@drawable/profile"
+        android:layout_height="wrap_content" />
+
+    <EditText
+        android:id="@+id/UserEmail"
+        android:hint="Email"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawableStart="@drawable/mail"
+        android:layout_marginTop="35dp" />
+
+    <ImageView
+        android:id="@+id/FaceImage"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:background="@drawable/circle_bg"
+        android:clipToOutline="true"
+        android:src="@drawable/face"
+        android:layout_marginTop="45dp"
+        android:layout_gravity="center"
+        android:scaleType="centerCrop" />
+
+    <ImageView
+        android:id="@+id/tickMark"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@android:drawable/checkbox_on_background"
+        android:layout_gravity="bottom|end"
+        android:visibility="gone"/>
+
+    <Button
+        android:id="@+id/Camera"
+        android:text="Capture Face"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="45dp"
+        app:backgroundTint="#81D4FA"
+        android:textColor="@color/black"/>
+    <Button
+        android:id="@+id/Register"
+        android:text="Register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="34dp"
+        app:backgroundTint="#81D4FA"
+        android:textColor="@color/black"/>
+
+</LinearLayout>
