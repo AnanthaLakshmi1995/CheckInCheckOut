@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/gradient"
-
+    android:background="@color/background"
     tools:context=".DashBoardActivity">
     <TextView
         android:id="@+id/Title"
@@ -29,7 +28,8 @@
         android:text="Admin"
         android:layout_gravity="center"
         android:layout_marginTop="85dp"
-        app:backgroundTint="#81D4FA"
+        app:backgroundTint="#1E3A8A"
+        app:cornerRadius="16dp"
         android:textColor="@color/black"/>
 
     <Button
@@ -38,14 +38,16 @@
         android:layout_height="wrap_content"
         android:text="User"
         android:layout_gravity="center"
-        app:backgroundTint="#81D4FA"
+        app:backgroundTint="#1E3A8A"
+        app:cornerRadius="16dp"
         android:textColor="@color/black"/>
     <Button
         android:id="@+id/CheckinCheckout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Check in/ Ckeckout"
-        app:backgroundTint="#81D4FA"
+        app:backgroundTint="#1E3A8A"
+        app:cornerRadius="16dp"
         android:textColor="@color/black"/>
 
 </LinearLayout>

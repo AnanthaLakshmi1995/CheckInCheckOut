@@ -62,7 +62,6 @@ public class UserRegisterActivity extends AppCompatActivity {
     }
     private void registerUser()
     {
-
         String name = userName.getText().toString().trim();
         String email = userEmail.getText().toString().trim();
         if (email.isEmpty())
@@ -99,7 +98,6 @@ public class UserRegisterActivity extends AppCompatActivity {
         if (success)
         {
             Toast.makeText(this, "User Registered Successfully!", Toast.LENGTH_SHORT).show();
-
             Intent intent = new Intent(UserRegisterActivity.this, UserCheckinActivity.class);
             intent.putExtra("username", name);
             startActivity(intent);
@@ -118,7 +116,6 @@ public class UserRegisterActivity extends AppCompatActivity {
 
         int maxSize = 300;
         float ratio = (float) width / height;
-
         if (ratio > 1)
         {
             width = maxSize;
@@ -148,17 +145,12 @@ public class UserRegisterActivity extends AppCompatActivity {
     {
 
         Bitmap rotated = rotateBitmap(original, -90);
-
         int width = rotated.getWidth();
         int height = rotated.getHeight();
-
         int size = Math.min(width, height);
-
         int x = (width - size) / 2;
         int y = (height - size) / 2;
-
         Bitmap cropped = Bitmap.createBitmap(rotated, x, y, size, size);
-
         return Bitmap.createScaledBitmap(cropped, 200, 200, true);
     }
 }
