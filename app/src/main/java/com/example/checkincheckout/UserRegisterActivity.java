@@ -11,11 +11,14 @@ import android.view.View;
 import android.widget.*;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import org.w3c.dom.Text;
+
 import java.io.ByteArrayOutputStream;
 
 public class UserRegisterActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 100;
-    EditText userName, userEmail;
+    EditText userName, userEmail,userPhone;
     ImageView  faceImage,tickMark;
     Button registerBtn,camera ,gotoBtn;
     Bitmap capturedFaceBitmap = null;
@@ -28,6 +31,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         db = DataBase.getInstance(this);
         userName = findViewById(R.id.UserName);
         userEmail = findViewById(R.id.UserEmail);
+        userPhone=findViewById(R.id.Phone);
         camera = findViewById(R.id.Camera);
         faceImage = findViewById(R.id.FaceImage);
         tickMark = findViewById(R.id.tickMark);
@@ -64,6 +68,7 @@ public class UserRegisterActivity extends AppCompatActivity {
     {
         String name = userName.getText().toString().trim();
         String email = userEmail.getText().toString().trim();
+        String phone =userPhone.getText().toString().trim();
         if (email.isEmpty())
         {
             userEmail.setError("Enter email");
@@ -75,7 +80,7 @@ public class UserRegisterActivity extends AppCompatActivity {
             return;
         }
 
-        if (name.isEmpty() || email.isEmpty())
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() )
         {
             Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show();
             return;
@@ -89,7 +94,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         Bitmap resized = resizeBitmap(capturedFaceBitmap);
         String faceBase64 = convertToBase64(resized);
         byte[] faceBytes = convertToBytes(capturedFaceBitmap);
-        boolean success = db.insertUser(name, email, faceBytes);
+        boolean success = db.insertUser(name, email, faceBytes,phone);
         //boolean success = db.insertUser(name, email, faceBase64);
         getSharedPreferences("MyApp", MODE_PRIVATE)
                 .edit()

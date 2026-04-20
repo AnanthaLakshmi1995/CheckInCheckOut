@@ -48,9 +48,10 @@ logout=findViewById(R.id.Logout);
         logout.setOnClickListener(v -> {
 
             Context context = null;
-            Toast.makeText(context, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ViewAttendanceActivity.this, "Admin Logged out Successfully", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(context, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(context, DashBoardActivity.class);
+            Intent intent = new Intent(this, DashBoardActivity.class);
             startActivity(intent);
         });
         // 🔍 SEARCH

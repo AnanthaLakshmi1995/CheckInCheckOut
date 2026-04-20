@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -36,7 +35,7 @@ public class ViewUsersActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_users);
 
         searchuser = findViewById(R.id.searchUser);
-        recyclerView = findViewById(R.id.recyclerUsers);
+        recyclerView = findViewById(R.id.recycleUsers);
 logout=findViewById(R.id.Logout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -47,7 +46,7 @@ logout=findViewById(R.id.Logout);
             Context context = null;
             Toast.makeText(context, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
 
-            Intent intent = new Intent(context, DashBoardActivity.class);
+            Intent intent = new Intent(context, AdminDashBoardActivity.class);
             startActivity(intent);
         });
         searchuser.addTextChangedListener(new TextWatcher() {
@@ -84,18 +83,25 @@ logout=findViewById(R.id.Logout);
         }
 
         userList.clear();
-
         while (cursor.moveToNext()) {
+
             userList.add(new UserModel(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2)
+                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("username")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("email")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("phone")) // safe
             ));
+
+        //while (cursor.moveToNext()) {
+         //   userList.add(new UserModel(
+                 //   cursor.getInt(0),
+                //    cursor.getString(1),
+                  //  cursor.getString(2),
+                  //  cursor.getString(4)));
         }
 
         displayList.clear();
         displayList.addAll(userList);
-
         adapter = new UserAdapter(this, displayList);
         recyclerView.setAdapter(adapter);
     }

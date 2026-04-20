@@ -23,6 +23,7 @@ public class  AdminRegisterActivity extends AppCompatActivity {
         register = findViewById(R.id.Register);
         db = new DataBase(this);
         register.setOnClickListener(v -> {
+
             String uname = Username.getText().toString().trim();
             String pass = Password.getText().toString().trim();
 
@@ -30,18 +31,26 @@ public class  AdminRegisterActivity extends AppCompatActivity {
                 Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
+
             if (uname.equals("admin") && pass.equals("12345")) {
 
-                Toast.makeText(this, "Admin Registered Successfully", Toast.LENGTH_SHORT).show();
+                boolean result = db.registerAdmin(uname, pass);
 
-                Intent intent = new Intent(this, AdminDashBoardActivity.class);
-                startActivity(intent);
-                finish();
-            } else
-            {
-                Toast.makeText(this, "Registration Failed", Toast.LENGTH_SHORT).show();
+                if (result) {
+                    Toast.makeText(this, "Admin Registered Successfully", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(this, AdminDashBoardActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Toast.makeText(this, "Already Registered or Error", Toast.LENGTH_SHORT).show();
+                }
+
+            } else {
+                Toast.makeText(this, "Only admin / 12345 allowed", Toast.LENGTH_SHORT).show();
             }
         });
+
 
     }
 }

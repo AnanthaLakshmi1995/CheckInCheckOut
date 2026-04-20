@@ -23,7 +23,7 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     public DataBase(Context context) {
-        super(context, DB_NAME, null, 4);
+        super(context, DB_NAME, null, 5);
     }
 
     @Override
@@ -31,7 +31,7 @@ public class DataBase extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE admin(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT)");
 
-        db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, face_data BLOB)");
+        db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, face_data BLOB,phone TEXT)");
 
         db.execSQL("CREATE TABLE attendance (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -46,17 +46,23 @@ public class DataBase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("Drop table if exists attendance");
         db.execSQL("Drop table if exists admin");
+        if (oldVersion < 5) {
+
+            db.execSQL("ALTER TABLE users ADD COLUMN phone TEXT");
+        }
+
         onCreate(db);
     }
 
 
-    public boolean insertUser(String username, String email, byte[] face_data) {
+    public boolean insertUser(String username, String email, byte[] face_data,String phone) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         cv.put("email", email);
-        cv.put("face_data", face_data);   // ✅ only this
+        cv.put("face_data", face_data);
+        cv.put("phone",phone);// ✅ only this
 
         long res = db.insert("users", null, cv);
         return res != -1;
