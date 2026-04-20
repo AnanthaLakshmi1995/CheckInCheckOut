@@ -2,7 +2,7 @@ package com.example.checkincheckout;
 
 public class UserModel {
     int id;
-    String name, email;
+    String name, email,status;
 
     public UserModel(int id, String name, String email) {
         this.id = id;
@@ -15,5 +15,9 @@ public class UserModel {
     public String getName() { return name; }
 
     public String getEmail() { return email; }
+    public String getStatus()
+    {
+        return status;
+    }
 
 }

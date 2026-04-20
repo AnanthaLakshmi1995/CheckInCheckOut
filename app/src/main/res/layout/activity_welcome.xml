@@ -5,8 +5,9 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="20dp"
-    android:background="@color/background"
+    android:background="@drawable/background"
     xmlns:android="http://schemas.android.com/apk/res/android">
+
     <ImageView
         android:id="@+id/Image"
         android:layout_width="420dp"
@@ -21,7 +22,7 @@
         android:layout_marginTop="40dp"
         android:text="Get Started....."
         android:textSize="18sp"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 </LinearLayout>

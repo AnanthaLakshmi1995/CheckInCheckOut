@@ -6,7 +6,8 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background">
+    android:background="@drawable/checkinimage"
+    >
 
     <TextView
         android:layout_width="match_parent"
@@ -15,7 +16,8 @@
         android:text="User Check-in/Check-out"
         android:textAlignment="center"
         android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="#0D47A1"/>
 
     <ImageView
         android:id="@+id/capturedImage"
@@ -40,9 +42,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/CheckIn"
@@ -50,9 +52,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/CheckOut"
@@ -60,9 +62,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
 
 

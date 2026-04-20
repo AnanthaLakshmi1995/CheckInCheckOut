@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:padding="16dp"
-    android:background="@color/background"
-
+    android:background="@drawable/attendance"
     android:orientation="vertical">
 
     <TextView
@@ -13,11 +12,52 @@
         android:textStyle="bold"
         android:layout_marginTop="25dp"
         android:layout_width="wrap_content"
+        android:textColor="#0D47A1"
         android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/Logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:textSize="12sp"
+        android:backgroundTint="#121212"
+        android:textColor="#FFFFFF"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="45dp"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+        <EditText
+            android:id="@+id/searchUser"
+            android:layout_width="25dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:hint="Search user..."
+            android:padding="10dp"
+            android:layout_marginTop="65dp"
+            android:textColor="#000000" />
+
+        <ImageButton
+            android:id="@+id/filter"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_marginStart="8dp"
+            android:backgroundTint="#1A73E8"
+            android:layout_marginTop="65dp"
+            android:src="@android:drawable/ic_menu_sort_by_size"/>
+    </LinearLayout>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerAttendance"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="10dp"/>
+
 
 </LinearLayout>

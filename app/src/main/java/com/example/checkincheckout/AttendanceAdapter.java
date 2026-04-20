@@ -1,10 +1,13 @@
 package com.example.checkincheckout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,6 +17,7 @@ import java.util.ArrayList;
 public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.ViewHolder> {
 
     Context context;
+   // Button logout;
     ArrayList<AttendanceModel> list;
 
     public AttendanceAdapter(Context context, ArrayList<AttendanceModel> list) {
@@ -27,13 +31,20 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
         View view = LayoutInflater.from(context)
                 .inflate(R.layout.attendance_list_items, parent, false);
         return new ViewHolder(view);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AttendanceModel model = list.get(position);
-        holder.name.setText("Username: " + model.getName());
+        holder.name.setText("Username: " + model.getUsername());
         holder.checkIn.setText("Check-in: " + model.getCheckIn());
+       // holder.logout.setOnClickListener(v -> {
+
+           // Toast.makeText(context, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
+
+           // Intent intent = new Intent(context, DashBoardActivity.class);
+            //context.startActivity(intent);});
 
         if(model.getCheckOut() != null) {
             holder.checkOut.setText("Check-out: " + model.getCheckOut());
@@ -49,12 +60,15 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name, checkIn, checkOut;
+       // Button logout;
+
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            name = itemView.findViewById(R.id.AttName);
-            checkIn = itemView.findViewById(R.id.AttCheckIn);
-            checkOut = itemView.findViewById(R.id.AttCheckOut);
+            name = itemView.findViewById(R.id.UserName);
+            checkIn = itemView.findViewById(R.id.CheckIn);
+            checkOut = itemView.findViewById(R.id.CheckOut);
+          //  logout = itemView.findViewById(R.id.Logout);
         }
     }
 }

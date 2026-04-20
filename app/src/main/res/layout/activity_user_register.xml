@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    android:background="@color/background"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <TextView
@@ -17,7 +17,7 @@
         android:gravity="center"
         android:text="User Registration"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="#0D47A1"
         android:textSize="35dp"
         android:textStyle="bold" />
 
@@ -63,17 +63,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="45dp"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
     <Button
         android:id="@+id/Register"
         android:text="Register"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="34dp"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
 </LinearLayout>

@@ -1,17 +1,20 @@
 package com.example.checkincheckout;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class UserAdapter  extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
+public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     Context context;
     ArrayList<UserModel> list;
@@ -31,9 +34,19 @@ public class UserAdapter  extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         UserModel model = list.get(position);
+
         holder.name.setText(model.getName());
         holder.email.setText(model.getEmail());
+
+        // ✅ Button click here
+       // holder.logout.setOnClickListener(v -> {
+
+            //Toast.makeText(context, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
+
+           // Intent intent = new Intent(context, DashBoardActivity.class);
+           // context.startActivity(intent);});
     }
 
     @Override
@@ -42,12 +55,16 @@ public class UserAdapter  extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
     }
 
     class ViewHolder extends RecyclerView.ViewHolder {
+
         TextView name, email;
+        //Button logout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             name = itemView.findViewById(R.id.UserName);
             email = itemView.findViewById(R.id.Emailid);
+            //logout = itemView.findViewById(R.id.Logout); // ✅ correct place
         }
     }
 }

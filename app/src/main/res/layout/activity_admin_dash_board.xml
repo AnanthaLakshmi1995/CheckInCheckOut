@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     android:padding="25dp"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:background="@drawable/background"
     tools:context=".AdminDashBoardActivity">
 
     <TextView
@@ -18,8 +18,8 @@
         android:layout_marginTop="25dp"
         android:gravity="center"
         android:text=" Admin DashBoard"
+        android:textColor="#0D47A1"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
         android:textSize="35dp"
         android:textStyle="bold" />
 
@@ -29,16 +29,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="100dp"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
     <Button
         android:id="@+id/ViewAttendance"
         android:text="View Users Attendance"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
+    <Button
+        android:id="@+id/Logout"
+        android:text="LogOut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:backgroundTint="#121212"
+        app:cornerRadius="16dp"
+        android:textColor="@color/white"/>
 
 </LinearLayout>

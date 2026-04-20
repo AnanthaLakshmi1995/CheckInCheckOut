@@ -1,28 +1,38 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="14dp"
-    android:layout_marginBottom="10dp"
-    android:background="@color/background"
-    android:elevation="3dp">
+    android:background="@drawable/attendance">
+
+
 
     <TextView
         android:id="@+id/UserName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="User Name:"
         android:textStyle="bold"
         android:textSize="18sp"
-        android:layout_marginTop="55dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_marginTop="45dp"/>
 
     <TextView
         android:id="@+id/Emailid"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="Emailid:"
         android:textSize="15sp"
-        android:layout_marginTop="4dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:textStyle="bold"
+        android:layout_marginTop="65dp" />
 
-</LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="80dp"/>
+
+</RelativeLayout>
+
+
+
+

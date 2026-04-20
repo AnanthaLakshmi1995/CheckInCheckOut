@@ -3,6 +3,7 @@ package com.example.checkincheckout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class AdminDashBoardActivity extends AppCompatActivity {
-    Button viewUsers, viewAttendance;
+    Button viewUsers, viewAttendance,logout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +21,7 @@ public class AdminDashBoardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_dash_board);
         viewUsers = findViewById(R.id.ViewUsers);
         viewAttendance = findViewById(R.id.ViewAttendance);
+        logout=findViewById(R.id.Logout);
 
         viewUsers.setOnClickListener(v -> {
             startActivity(new Intent(this, ViewUsersActivity.class));
@@ -28,6 +30,12 @@ public class AdminDashBoardActivity extends AppCompatActivity {
         viewAttendance.setOnClickListener(v -> {
 
             startActivity(new Intent(this, ViewAttendanceActivity.class));
+        });
+        logout.setOnClickListener(v ->
+        {
+            Toast.makeText(this, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
+            Intent intent=new Intent(this,DashBoardActivity.class);
+            startActivity(intent);
         });
     }
 

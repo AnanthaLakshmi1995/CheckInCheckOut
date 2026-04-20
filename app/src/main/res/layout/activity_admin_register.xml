@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    android:background="@color/background"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
     <TextView
@@ -18,7 +18,7 @@
         android:gravity="center"
         android:text=" Admin Registration"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="#0D47A1"
         android:textSize="35dp"
         android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 </LinearLayout>

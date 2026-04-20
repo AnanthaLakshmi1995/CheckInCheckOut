@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/background"
+    android:background="@drawable/background"
     tools:context=".DashBoardActivity">
     <TextView
         android:id="@+id/Title"
@@ -17,7 +17,7 @@
         android:gravity="center"
         android:text="DashBoard"
         android:textAlignment="center"
-        android:textColor="@android:color/black"
+        android:textColor="#0D47A1"
         android:textSize="35dp"
         android:textStyle="bold" />
 
@@ -28,9 +28,9 @@
         android:text="Admin"
         android:layout_gravity="center"
         android:layout_marginTop="85dp"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
     <Button
         android:id="@+id/User"
@@ -38,16 +38,16 @@
         android:layout_height="wrap_content"
         android:text="User"
         android:layout_gravity="center"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
     <Button
         android:id="@+id/CheckinCheckout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Check in/ Ckeckout"
-        app:backgroundTint="#1E3A8A"
+        app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-        android:textColor="@color/black"/>
+        android:textColor="@color/white"/>
 
 </LinearLayout>

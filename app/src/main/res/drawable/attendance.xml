@@ -1,0 +1,21 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Image -->
+    <item>
+        <bitmap
+            android:src="@drawable/img"
+            android:gravity="center"/>
+    </item>
+
+    <!-- Gradient overlay -->
+    <item>
+        <shape>
+            <gradient
+                android:startColor="#801A3FBF"
+                android:centerColor="#803FB3E6"
+                android:endColor="#8043D1C6"
+                android:angle="45"/>
+        </shape>
+    </item>
+
+</layer-list>
