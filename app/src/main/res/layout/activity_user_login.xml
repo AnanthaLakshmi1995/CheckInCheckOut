@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    android:background="@color/background"
+    android:background="@drawable/background"
     android:orientation="vertical">
 
 
@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:gravity="center"
-        android:text=" Admin Login"
+        android:text="User Login"
         android:textColor="#0D47A1"
         android:textAlignment="center"
     android:textSize="35dp"
@@ -47,6 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
-        app:backgroundTint="#81D4FA"
-        android:textColor="@color/black"/>
+        app:backgroundTint="#121212"
+        app:cornerRadius="16dp"
+        android:textColor="@color/white"/>
 </LinearLayout>

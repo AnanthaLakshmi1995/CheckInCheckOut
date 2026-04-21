@@ -21,7 +21,7 @@
             android:name=".AdminDashBoardActivity"
             android:exported="false" />
         <activity
-            android:name=".AdminLoginActivity"
+            android:name=".UserLoginActivity"
             android:exported="false" />
         <activity
             android:name=".UserCheckinActivity"

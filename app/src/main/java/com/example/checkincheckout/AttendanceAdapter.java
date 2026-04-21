@@ -17,9 +17,7 @@ import java.util.ArrayList;
 public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.ViewHolder> {
 
     Context context;
-   // Button logout;
     ArrayList<AttendanceModel> list;
-
     public AttendanceAdapter(Context context, ArrayList<AttendanceModel> list) {
         this.context = context;
         this.list = list;
@@ -39,13 +37,6 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
         AttendanceModel model = list.get(position);
         holder.name.setText("Username: " + model.getUsername());
         holder.checkIn.setText("Check-in: " + model.getCheckIn());
-       // holder.logout.setOnClickListener(v -> {
-
-           // Toast.makeText(context, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
-
-           // Intent intent = new Intent(context, DashBoardActivity.class);
-            //context.startActivity(intent);});
-
         if(model.getCheckOut() != null) {
             holder.checkOut.setText("Check-out: " + model.getCheckOut());
         } else {
@@ -55,20 +46,19 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
     }
 
     @Override
-    public int getItemCount() { return list.size(); }
+    public int getItemCount() {
+        return list.size();
+    }
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
         TextView name, checkIn, checkOut;
-       // Button logout;
-
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.UserName);
             checkIn = itemView.findViewById(R.id.CheckIn);
             checkOut = itemView.findViewById(R.id.CheckOut);
-          //  logout = itemView.findViewById(R.id.Logout);
+
         }
     }
 }

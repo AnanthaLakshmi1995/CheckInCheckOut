@@ -23,7 +23,8 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     public DataBase(Context context) {
-        super(context, DB_NAME, null, 5);
+
+         super(context, DB_NAME, null, 5);
     }
 
     @Override
@@ -31,7 +32,7 @@ public class DataBase extends SQLiteOpenHelper {
 
         db.execSQL("CREATE TABLE admin(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT)");
 
-        db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, face_data BLOB,phone TEXT)");
+        db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT,phone TEXT,password TEXT, face_data BLOB)");
 
         db.execSQL("CREATE TABLE attendance (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -49,20 +50,22 @@ public class DataBase extends SQLiteOpenHelper {
         if (oldVersion < 5) {
 
             db.execSQL("ALTER TABLE users ADD COLUMN phone TEXT");
+            db.execSQL("ALTER TABLE users ADD COLUMN paasword Text ");
         }
 
         onCreate(db);
     }
 
 
-    public boolean insertUser(String username, String email, byte[] face_data,String phone) {
+    public boolean insertUser(String username, String email, byte[] face_data,String phone,String password) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         cv.put("email", email);
+        cv.put("phone",phone);
+        cv.put("password",password);
         cv.put("face_data", face_data);
-        cv.put("phone",phone);// ✅ only this
 
         long res = db.insert("users", null, cv);
         return res != -1;
@@ -78,18 +81,15 @@ public class DataBase extends SQLiteOpenHelper {
 
         db.insert("attendance", null, values);
     }
-
-
     public Cursor getAllUsers() {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM users", null);
 
     }
-
-    public boolean loginAdmin(String name, String password) {
+    public boolean loginUser(String name, String pass) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT * FROM admin WHERE name=? AND password=?",
-                new String[]{name, password});
+        Cursor cursor = db.rawQuery("SELECT * FROM users WHERE username=? AND password=?",
+                new String[]{name, pass});
         return cursor.getCount() > 0;
     }
 
@@ -129,7 +129,7 @@ public class DataBase extends SQLiteOpenHelper {
         );
 
         if (cursor != null && cursor.moveToFirst()) {
-            byte[] faceBytes = cursor.getBlob(0); // ✅ CORRECT
+            byte[] faceBytes = cursor.getBlob(0);
             cursor.close();
             return faceBytes;
         }

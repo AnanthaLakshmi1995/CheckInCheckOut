@@ -40,6 +40,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.name.setText(model.getName());
         holder.email.setText(model.getEmail());
         holder.phone.setText(model.getPhone());
+        holder.pass.setText(model.getPassword());
 
         // ✅ Button click here
        // holder.logout.setOnClickListener(v -> {
@@ -57,7 +58,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, email,phone;
+        TextView name, email,phone,pass;
         //Button logout;
 
         public ViewHolder(@NonNull View itemView) {
@@ -66,6 +67,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
             name = itemView.findViewById(R.id.UserName);
             email = itemView.findViewById(R.id.Emailid);
             phone=itemView.findViewById(R.id.Phone);
+            pass=itemView.findViewById(R.id.Password);
             //logout = itemView.findViewById(R.id.Logout); // ✅ correct place
         }
     }

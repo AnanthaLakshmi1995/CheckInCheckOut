@@ -24,11 +24,23 @@
         android:textStyle="bold" />
 
     <Button
+        android:id="@+id/Report"
+        android:layout_width="94dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="280dp"
+        android:layout_marginTop="55dp"
+        android:backgroundTint="#121212"
+        android:text="Reports"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp" />
+    <Button
         android:id="@+id/ViewUsers"
         android:text="View Users Details"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="80dp"
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
         android:textColor="@color/white"/>

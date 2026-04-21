@@ -89,7 +89,9 @@ logout=findViewById(R.id.Logout);
                     cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                     cursor.getString(cursor.getColumnIndexOrThrow("username")),
                     cursor.getString(cursor.getColumnIndexOrThrow("email")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("phone")) // safe
+                    cursor.getString(cursor.getColumnIndexOrThrow("phone")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("password"))
+                    // safe
             ));
 
         //while (cursor.moveToNext()) {

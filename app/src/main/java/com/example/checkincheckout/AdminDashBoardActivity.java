@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class AdminDashBoardActivity extends AppCompatActivity {
-    Button viewUsers, viewAttendance,logout;
+    Button viewUsers, viewAttendance,logout,reports;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,7 @@ public class AdminDashBoardActivity extends AppCompatActivity {
         viewUsers = findViewById(R.id.ViewUsers);
         viewAttendance = findViewById(R.id.ViewAttendance);
         logout=findViewById(R.id.Logout);
-
+reports=findViewById(R.id.Report);
         viewUsers.setOnClickListener(v -> {
             startActivity(new Intent(this, ViewUsersActivity.class));
         });
@@ -30,6 +30,11 @@ public class AdminDashBoardActivity extends AppCompatActivity {
         viewAttendance.setOnClickListener(v -> {
 
             startActivity(new Intent(this, ViewAttendanceActivity.class));
+        });
+        reports.setOnClickListener(v ->
+        {
+            startActivity(new Intent(this, ViewAttendanceActivity.class));
+
         });
         logout.setOnClickListener(v ->
         {

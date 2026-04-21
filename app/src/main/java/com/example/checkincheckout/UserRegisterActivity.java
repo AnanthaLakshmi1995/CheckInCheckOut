@@ -18,7 +18,7 @@ import java.io.ByteArrayOutputStream;
 
 public class UserRegisterActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 100;
-    EditText userName, userEmail,userPhone;
+    EditText userName, userEmail,userPhone,userPass;
     ImageView  faceImage,tickMark;
     Button registerBtn,camera ,gotoBtn;
     Bitmap capturedFaceBitmap = null;
@@ -33,6 +33,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         userEmail = findViewById(R.id.UserEmail);
         userPhone=findViewById(R.id.Phone);
         camera = findViewById(R.id.Camera);
+        userPass=findViewById(R.id.Password);
         faceImage = findViewById(R.id.FaceImage);
         tickMark = findViewById(R.id.tickMark);
         registerBtn = findViewById(R.id.Register);
@@ -69,6 +70,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         String name = userName.getText().toString().trim();
         String email = userEmail.getText().toString().trim();
         String phone =userPhone.getText().toString().trim();
+        String pass=userPass.getText().toString().trim();
         if (email.isEmpty())
         {
             userEmail.setError("Enter email");
@@ -80,7 +82,7 @@ public class UserRegisterActivity extends AppCompatActivity {
             return;
         }
 
-        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() )
+        if (name.isEmpty() || email.isEmpty() || phone.isEmpty() ||pass.isEmpty() )
         {
             Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show();
             return;
@@ -94,7 +96,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         Bitmap resized = resizeBitmap(capturedFaceBitmap);
         String faceBase64 = convertToBase64(resized);
         byte[] faceBytes = convertToBytes(capturedFaceBitmap);
-        boolean success = db.insertUser(name, email, faceBytes,phone);
+        boolean success = db.insertUser(name, email, faceBytes,phone,pass);
         //boolean success = db.insertUser(name, email, faceBase64);
         getSharedPreferences("MyApp", MODE_PRIVATE)
                 .edit()
@@ -103,7 +105,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         if (success)
         {
             Toast.makeText(this, "User Registered Successfully!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(UserRegisterActivity.this, UserCheckinActivity.class);
+            Intent intent = new Intent(UserRegisterActivity.this, DashBoardActivity.class);
             intent.putExtra("username", name);
             startActivity(intent);
             finish();

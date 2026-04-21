@@ -36,6 +36,14 @@
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/mail" />
     <EditText
+    android:id="@+id/Password"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Password"
+    android:inputType="textPassword"
+        android:drawableStart="@drawable/lock"/>
+
+    <EditText
         android:id="@+id/Phone"
         android:hint= "Phone No:"
         android:layout_width="match_parent"

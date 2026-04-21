@@ -1,7 +1,7 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="250dp"
     android:background="@drawable/details">
     <TextView
         android:id="@+id/UserName"
@@ -33,11 +33,22 @@
         android:layout_below="@id/Emailid"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"/>
+    <TextView
+        android:id="@+id/Password"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Password:"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:layout_below="@id/Phone"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/Phone"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="45dp"/>
 
 </RelativeLayout>
