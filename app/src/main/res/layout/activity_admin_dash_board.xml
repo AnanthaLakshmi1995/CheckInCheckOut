@@ -17,10 +17,10 @@
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:gravity="center"
-        android:text=" Admin DashBoard"
+        android:text=" Admin DashBoard Screen"
         android:textColor="#0D47A1"
         android:textAlignment="center"
-        android:textSize="35dp"
+        android:textSize="25dp"
         android:textStyle="bold" />
 
     <Button

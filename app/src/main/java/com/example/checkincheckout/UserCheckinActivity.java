@@ -35,8 +35,16 @@ public class UserCheckinActivity extends AppCompatActivity {
         btnCheckOut = findViewById(R.id.CheckOut);
         cameraBtn = findViewById(R.id.Camera);
         tickMark=findViewById(R.id.tickMark);
-        db = new DataBase(this);
+      //  db = new DataBase(this);
+        db = DataBase.getInstance(this);
         userName = getIntent().getStringExtra("username");
+       // userName = getIntent().getStringExtra("username");
+
+        if (userName == null || userName.isEmpty()) {
+            Toast.makeText(this, "Username not received!", Toast.LENGTH_SHORT).show();
+            finish();
+            return;
+        }
         cameraBtn.setOnClickListener(v -> openCamera());
         btnCheckIn.setOnClickListener(v ->
         {
@@ -173,7 +181,6 @@ public class UserCheckinActivity extends AppCompatActivity {
 
         return android.graphics.BitmapFactory.decodeByteArray(faceBytes, 0, faceBytes.length);
     }
-
     private Bitmap processFace(Bitmap original)
     {
         Bitmap rotated = rotateBitmap(original, -90);

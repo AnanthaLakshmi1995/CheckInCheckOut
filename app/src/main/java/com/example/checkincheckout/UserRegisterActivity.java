@@ -105,7 +105,7 @@ public class UserRegisterActivity extends AppCompatActivity {
         if (success)
         {
             Toast.makeText(this, "User Registered Successfully!", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(UserRegisterActivity.this, DashBoardActivity.class);
+            Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
             intent.putExtra("username", name);
             startActivity(intent);
             finish();

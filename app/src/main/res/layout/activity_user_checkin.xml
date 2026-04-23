@@ -6,14 +6,13 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/checkinimage"
-    >
+    android:background="@drawable/checkinimage">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:text="User Check-in/Check-out"
+        android:layout_marginTop="1dp"
+        android:text="User DashBoard Screen"
         android:textAlignment="center"
         android:textSize="25sp"
         android:textStyle="bold"
@@ -65,7 +64,5 @@
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
         android:textColor="@color/white"/>
-
-
 
 </LinearLayout>

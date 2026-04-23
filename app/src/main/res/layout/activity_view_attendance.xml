@@ -9,7 +9,7 @@
         android:text="Attendance Records"
         android:textSize="22sp"
         android:textStyle="bold"
-        android:layout_marginTop="35dp"
+        android:layout_marginTop="45dp"
         android:layout_width="wrap_content"
         android:textColor="#0D47A1"
         android:layout_height="wrap_content" />

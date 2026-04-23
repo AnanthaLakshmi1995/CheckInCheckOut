@@ -17,7 +17,7 @@
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:gravity="center"
-        android:text="User Login"
+        android:text="User Login Screen"
         android:textColor="#0D47A1"
         android:textAlignment="center"
     android:textSize="35dp"

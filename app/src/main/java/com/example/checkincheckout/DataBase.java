@@ -30,7 +30,7 @@ public class DataBase extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE admin(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT)");
+        db.execSQL("CREATE TABLE admin(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email Text, password TEXT)");
 
         db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT,phone TEXT,password TEXT, face_data BLOB)");
 
@@ -39,8 +39,6 @@ public class DataBase extends SQLiteOpenHelper {
                 "username TEXT, " +
                 "check_in TEXT, " +
                 "check_out TEXT)");
-
-
     }
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -50,7 +48,7 @@ public class DataBase extends SQLiteOpenHelper {
         if (oldVersion < 5) {
 
             db.execSQL("ALTER TABLE users ADD COLUMN phone TEXT");
-            db.execSQL("ALTER TABLE users ADD COLUMN paasword Text ");
+            db.execSQL("ALTER TABLE users ADD COLUMN password Text ");
         }
 
         onCreate(db);
@@ -59,18 +57,15 @@ public class DataBase extends SQLiteOpenHelper {
 
     public boolean insertUser(String username, String email, byte[] face_data,String phone,String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         cv.put("email", email);
         cv.put("phone",phone);
         cv.put("password",password);
         cv.put("face_data", face_data);
-
         long res = db.insert("users", null, cv);
         return res != -1;
     }
-
     public void insertAttendance(String username, String checkIn) {
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -97,14 +92,26 @@ public class DataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM attendance", null);
     }
+public boolean loginAdmin(String name,String password){
+    SQLiteDatabase db = this.getWritableDatabase();
 
-    public boolean registerAdmin(String name, String password) {
+    ContentValues cv = new ContentValues();
+    cv.put("name", name);
+    cv.put("password", password);
+
+    long result = db.insert("admin", null, cv);
+
+    return result != -1;
+}
+    public boolean registerAdmin(String name, String  email,String password) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put("name", name);
+        cv.put("mail" , email);
         cv.put("password", password);
+
 
         long result = db.insert("admin", null, cv);
 

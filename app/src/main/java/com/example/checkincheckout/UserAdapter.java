@@ -37,10 +37,10 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         UserModel model = list.get(position);
 
-        holder.name.setText(model.getName());
-        holder.email.setText(model.getEmail());
-        holder.phone.setText(model.getPhone());
-        holder.pass.setText(model.getPassword());
+        holder.name.setText("Username: " +model.getUsername());
+        holder.email.setText("Email id:" +model.getEmail());
+        holder.pass.setText("Phone no:" +model.getPassword());
+        holder.phone.setText("Password :" +model.getPhone());
 
         // ✅ Button click here
        // holder.logout.setOnClickListener(v -> {
@@ -60,14 +60,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         TextView name, email,phone,pass;
         //Button logout;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             name = itemView.findViewById(R.id.UserName);
             email = itemView.findViewById(R.id.Emailid);
-            phone=itemView.findViewById(R.id.Phone);
             pass=itemView.findViewById(R.id.Password);
+            phone=itemView.findViewById(R.id.Phone);
+
             //logout = itemView.findViewById(R.id.Logout); // ✅ correct place
         }
     }

@@ -1,23 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:padding="25dp"
     android:background="@drawable/background"
-    tools:context=".DashBoardActivity">
+    android:orientation="vertical">
+
 
     <TextView
         android:id="@+id/Title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="25dp"
         android:gravity="center"
-        android:text="Login Screen"
+        android:text="Admin Login Screen"
         android:textColor="#0D47A1"
-        android:textSize="28sp"
+        android:textAlignment="center"
+        android:textSize="35dp"
         android:textStyle="bold" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
@@ -51,53 +56,12 @@
 
     <Button
         android:id="@+id/Login"
+        android:text="Login"
         android:layout_width="100dp"
         android:layout_height="50dp"
         android:layout_marginTop="24dp"
-        android:text="Login"
-        android:textColor="@color/white"
         app:backgroundTint="#121212"
+        app:cornerRadius="16dp"
         android:layout_marginStart="150dp"
-        app:cornerRadius="16dp" />
-
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="62dp"
-        android:text="Don't have an account?"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        android:layout_marginTop="35dp"/>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="20dp">
-
-        <Button
-            android:id="@+id/Admin"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_margin="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="Admin Register"
-            android:textColor="@color/white"
-            app:backgroundTint="#121212"
-            app:cornerRadius="16dp"/>
-
-        <Button
-            android:id="@+id/User"
-            android:layout_width="160dp"
-            android:layout_height="60dp"
-            android:layout_margin="8dp"
-            android:text="User register"
-            android:textColor="@color/white"
-            app:backgroundTint="#121212"
-            app:cornerRadius="16dp"/>
-    </LinearLayout>
-
+        android:textColor="@color/white"/>
 </LinearLayout>

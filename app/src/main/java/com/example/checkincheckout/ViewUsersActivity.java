@@ -30,38 +30,42 @@ public class ViewUsersActivity extends AppCompatActivity {
     DataBase db;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState)
+    {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_users);
-
         searchuser = findViewById(R.id.searchUser);
         recyclerView = findViewById(R.id.recycleUsers);
-logout=findViewById(R.id.Logout);
+        logout=findViewById(R.id.Logout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
         db = new DataBase(this);
-
-        loadUsers();
-        logout.setOnClickListener(v -> {
+          loadUsers();
+        logout.setOnClickListener(v ->
+        {
             Context context = null;
             Toast.makeText(context, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
 
             Intent intent = new Intent(context, AdminDashBoardActivity.class);
             startActivity(intent);
         });
-        searchuser.addTextChangedListener(new TextWatcher() {
+        searchuser.addTextChangedListener(new TextWatcher()
+        {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after)
+            {
             }
 
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onTextChanged(CharSequence s, int start, int before, int count)
+            {
 
                 String text = s.toString().toLowerCase();
                 displayList.clear();
 
-                for (UserModel user : userList) {
-                    if (user.getName().toLowerCase().contains(text)) {
+                for (UserModel user : userList)
+                {
+                    if (user.getUsername().toLowerCase().contains(text))
+                    {
                         displayList.add(user);
                     }
                 }
@@ -69,37 +73,32 @@ logout=findViewById(R.id.Logout);
             }
 
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(Editable s)
+            {
             }
         });
 
     }
-    private void loadUsers() {
+    private void loadUsers()
+    {
         Cursor cursor = db.getAllUsers();
 
-        if (cursor.getCount() == 0) {
+        if (cursor.getCount() == 0)
+        {
             Toast.makeText(this, "No users found", Toast.LENGTH_SHORT).show();
             return;
         }
 
         userList.clear();
-        while (cursor.moveToNext()) {
-
+        while (cursor.moveToNext())
+        {
             userList.add(new UserModel(
                     cursor.getInt(cursor.getColumnIndexOrThrow("id")),
                     cursor.getString(cursor.getColumnIndexOrThrow("username")),
                     cursor.getString(cursor.getColumnIndexOrThrow("email")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("phone")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("password"))
-                    // safe
+                    cursor.getString(cursor.getColumnIndexOrThrow("password")),
+                    cursor.getString(cursor.getColumnIndexOrThrow("phone"))
             ));
-
-        //while (cursor.moveToNext()) {
-         //   userList.add(new UserModel(
-                 //   cursor.getInt(0),
-                //    cursor.getString(1),
-                  //  cursor.getString(2),
-                  //  cursor.getString(4)));
         }
 
         displayList.clear();

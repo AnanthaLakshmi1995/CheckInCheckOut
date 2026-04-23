@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class  AdminRegisterActivity extends AppCompatActivity {
 
-    EditText Username, Password;
+    EditText Username, Password,email;
     Button register;
     DataBase db;
 
@@ -20,37 +20,34 @@ public class  AdminRegisterActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_register);
         Username = findViewById(R.id.Username);
         Password = findViewById(R.id.Password);
+        email=findViewById(R.id.Emailid);
         register = findViewById(R.id.Register);
         db = new DataBase(this);
         register.setOnClickListener(v -> {
 
             String uname = Username.getText().toString().trim();
             String pass = Password.getText().toString().trim();
-
-            if (uname.isEmpty() || pass.isEmpty()) {
+           String mail= email.getText().toString().trim();
+            if (uname.isEmpty() || pass.isEmpty() || mail.isEmpty()) {
                 Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
 
-            if (uname.equals("admin") && pass.equals("12345")) {
 
-                boolean result = db.registerAdmin(uname, pass);
+
+                boolean result = db.registerAdmin(uname,mail ,pass);
 
                 if (result) {
                     Toast.makeText(this, "Admin Registered Successfully", Toast.LENGTH_SHORT).show();
 
-                    Intent intent = new Intent(this, AdminDashBoardActivity.class);
+                    Intent intent = new Intent(this, AdminLoginActivity.class);
                     startActivity(intent);
                     finish();
                 } else {
                     Toast.makeText(this, "Already Registered or Error", Toast.LENGTH_SHORT).show();
                 }
 
-            } else {
-                Toast.makeText(this, "Only admin / 12345 allowed", Toast.LENGTH_SHORT).show();
-            }
         });
-
 
     }
 }

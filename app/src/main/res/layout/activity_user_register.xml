@@ -15,16 +15,16 @@
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:gravity="center"
-        android:text="User Registration"
+        android:text="User Registration Screen"
         android:textAlignment="center"
         android:textColor="#0D47A1"
-        android:textSize="35dp"
+        android:textSize="25dp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/UserName"
         android:hint="Full Name"
-        android:layout_marginTop="45dp"
+        android:layout_marginTop="55dp"
         android:layout_width="match_parent"
         android:drawableStart="@drawable/profile"
         android:layout_height="wrap_content" />
