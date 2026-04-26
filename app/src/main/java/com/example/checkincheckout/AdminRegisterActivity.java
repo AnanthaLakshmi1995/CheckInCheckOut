@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class  AdminRegisterActivity extends AppCompatActivity {
 
-    EditText Username, Password,email;
+    EditText AdminName, Password,Adminemail;
     Button register;
     DataBase db;
 
@@ -18,24 +18,22 @@ public class  AdminRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_register);
-        Username = findViewById(R.id.Username);
-        Password = findViewById(R.id.Password);
-        email=findViewById(R.id.Emailid);
+        AdminName = findViewById(R.id.AdminName);
+        Password = findViewById(R.id.AdminPassword);
+        Adminemail=findViewById(R.id.AdminEmailid);
         register = findViewById(R.id.Register);
         db = new DataBase(this);
         register.setOnClickListener(v -> {
 
-            String uname = Username.getText().toString().trim();
-            String pass = Password.getText().toString().trim();
-           String mail= email.getText().toString().trim();
-            if (uname.isEmpty() || pass.isEmpty() || mail.isEmpty()) {
+            String name = AdminName.getText().toString().trim();
+            String password = Password.getText().toString().trim();
+           String email= Adminemail.getText().toString().trim();
+            if (name.isEmpty() || password.isEmpty() || email.isEmpty()) {
                 Toast.makeText(this, "Fill all fields", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-
-
-                boolean result = db.registerAdmin(uname,mail ,pass);
+            
+                boolean result = db.insertAdmin(name,email ,password);
 
                 if (result) {
                     Toast.makeText(this, "Admin Registered Successfully", Toast.LENGTH_SHORT).show();
@@ -44,7 +42,7 @@ public class  AdminRegisterActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 } else {
-                    Toast.makeText(this, "Already Registered or Error", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Already Registered", Toast.LENGTH_SHORT).show();
                 }
 
         });

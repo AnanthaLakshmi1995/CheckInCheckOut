@@ -6,7 +6,7 @@
     android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/checkinimage">
+    android:background="@drawable/details">
 
     <TextView
         android:layout_width="match_parent"
@@ -38,8 +38,8 @@
     <Button
         android:id="@+id/Camera"
         android:text="Capture Face"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_marginTop="45dp"
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
@@ -48,8 +48,8 @@
     <Button
         android:id="@+id/CheckIn"
         android:text="Check In"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_marginTop="45dp"
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
@@ -58,8 +58,8 @@
     <Button
         android:id="@+id/CheckOut"
         android:text="Check Out"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
         android:layout_marginTop="45dp"
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"

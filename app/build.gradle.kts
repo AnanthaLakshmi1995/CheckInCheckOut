@@ -52,8 +52,10 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.activity)
     implementation(libs.androidx.constraintlayout)
+    implementation(libs.play.services.location)
+    implementation(libs.androidx.work.runtime)
     testImplementation(libs.junit)
-
+    implementation("androidx.work:work-runtime:2.9.0")
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))

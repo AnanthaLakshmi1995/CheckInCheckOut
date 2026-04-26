@@ -43,13 +43,16 @@ public class DashBoardActivity extends AppCompatActivity {
                 Toast.makeText(this, "Admin Login Successfully", Toast.LENGTH_SHORT).show();
 
                 startActivity(new Intent(this, AdminDashBoardActivity.class));
+                finish();
             }
             else if (db.loginUser(name, pass)) {
                 Toast.makeText(this, "User Login Successfully", Toast.LENGTH_SHORT).show();
 
+
                 Intent intent = new Intent(this, UserCheckinActivity.class);
                 intent.putExtra("username", name);
                 startActivity(intent);
+                finish();
             }
             else {
                 Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show();

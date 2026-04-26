@@ -53,6 +53,7 @@ logout=findViewById(R.id.Logout);
 
             Intent intent = new Intent(this, DashBoardActivity.class);
             startActivity(intent);
+            finish();
         });
         // 🔍 SEARCH
         searchuser.addTextChangedListener(new TextWatcher() {

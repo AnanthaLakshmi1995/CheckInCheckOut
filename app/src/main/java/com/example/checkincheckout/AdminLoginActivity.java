@@ -18,7 +18,7 @@ public class AdminLoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_user_login);
+        setContentView(R.layout.activity_admin_login);
         adminName = findViewById(R.id.Username);
         adminPassword = findViewById(R.id.Password);
         loginBtn = findViewById(R.id.Login);
@@ -36,6 +36,7 @@ public class AdminLoginActivity extends AppCompatActivity {
                 Intent intent = new Intent(this,AdminDashBoardActivity.class);
                 intent.putExtra("username", name);
                 startActivity(intent);
+                finish();
             }
             else
             {

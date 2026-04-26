@@ -24,7 +24,7 @@ public class DataBase extends SQLiteOpenHelper {
 
     public DataBase(Context context) {
 
-         super(context, DB_NAME, null, 5);
+         super(context, DB_NAME, null, 6);
     }
 
     @Override
@@ -45,8 +45,8 @@ public class DataBase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("Drop table if exists attendance");
         db.execSQL("Drop table if exists admin");
-        if (oldVersion < 5) {
-
+        if (oldVersion < 6) {
+db.execSQL("Alter table admin add column email text");
             db.execSQL("ALTER TABLE users ADD COLUMN phone TEXT");
             db.execSQL("ALTER TABLE users ADD COLUMN password Text ");
         }
@@ -92,24 +92,29 @@ public class DataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         return db.rawQuery("SELECT * FROM attendance", null);
     }
-public boolean loginAdmin(String name,String password){
-    SQLiteDatabase db = this.getWritableDatabase();
+    public boolean loginAdmin(String name, String password) {
 
-    ContentValues cv = new ContentValues();
-    cv.put("name", name);
-    cv.put("password", password);
+        SQLiteDatabase db = this.getReadableDatabase();
 
-    long result = db.insert("admin", null, cv);
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM admin WHERE name=? AND password=?",
+                new String[]{name, password}
+        );
 
-    return result != -1;
-}
-    public boolean registerAdmin(String name, String  email,String password) {
+        boolean exists = cursor.getCount() > 0;
+        cursor.close();
+
+        return exists;
+    }
+
+
+    public boolean insertAdmin(String name, String  email,String password) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues cv = new ContentValues();
         cv.put("name", name);
-        cv.put("mail" , email);
+        cv.put("email" , email);
         cv.put("password", password);
 
 

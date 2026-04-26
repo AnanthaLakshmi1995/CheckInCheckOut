@@ -40,14 +40,15 @@ public class ViewUsersActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         db = new DataBase(this);
           loadUsers();
-        logout.setOnClickListener(v ->
-        {
-            Context context = null;
-            Toast.makeText(context, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
+        logout.setOnClickListener(v -> {
 
-            Intent intent = new Intent(context, AdminDashBoardActivity.class);
+            Toast.makeText(ViewUsersActivity.this, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(ViewUsersActivity.this, AdminDashBoardActivity.class);
             startActivity(intent);
+            finish();
         });
+
         searchuser.addTextChangedListener(new TextWatcher()
         {
             @Override

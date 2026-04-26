@@ -22,7 +22,7 @@
         android:textSize="25dp"
         android:textStyle="bold" />
     <EditText
-        android:id="@+id/UserName"
+        android:id="@+id/AdminName"
         android:hint="Full Name"
         android:layout_marginTop="55dp"
         android:layout_width="match_parent"
@@ -30,7 +30,7 @@
         android:layout_height="wrap_content" />
 
     <EditText
-        android:id="@+id/Emailid"
+        android:id="@+id/AdminEmailid"
         android:hint="Email"
         android:inputType="textEmailAddress"
         android:layout_width="match_parent"
@@ -38,7 +38,7 @@
         android:drawableStart="@drawable/mail" />
 
     <EditText
-        android:id="@+id/Password"
+        android:id="@+id/AdminPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Password"

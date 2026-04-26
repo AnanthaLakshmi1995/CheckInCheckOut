@@ -41,6 +41,7 @@ reports=findViewById(R.id.Report);
             Toast.makeText(this, "Admin Logged out successfully", Toast.LENGTH_SHORT).show();
             Intent intent=new Intent(this,DashBoardActivity.class);
             startActivity(intent);
+            finish();
         });
     }
 
