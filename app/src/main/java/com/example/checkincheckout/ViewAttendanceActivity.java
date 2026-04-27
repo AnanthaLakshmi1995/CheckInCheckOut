@@ -16,7 +16,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ViewAttendanceActivity extends AppCompatActivity {
 
@@ -55,7 +58,6 @@ logout=findViewById(R.id.Logout);
             startActivity(intent);
             finish();
         });
-        // 🔍 SEARCH
         searchuser.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
@@ -77,8 +79,6 @@ logout=findViewById(R.id.Logout);
             @Override
             public void afterTextChanged(Editable s) {}
         });
-
-        // 🔽 FILTER
         filter.setOnClickListener(v -> {
             String[] options = {"All", "Check-In", "Check-Out"};
 
@@ -113,31 +113,64 @@ logout=findViewById(R.id.Logout);
             builder.show();
         });
     }
-
     private void loadAttendance() {
-        Cursor cursor = db.getAllAttendance();
 
-        if (cursor.getCount() == 0) {
-            Toast.makeText(this, "No attendance records found", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        Cursor cursor = db.getAllAttendance();
 
         attendanceList.clear();
 
         while (cursor.moveToNext()) {
-            attendanceList.add(new AttendanceModel(
-                    cursor.getInt(0),
-                    cursor.getString(1),
-                    cursor.getString(2),
-                    cursor.getString(3)
-            ));
+
+            int id = cursor.getInt(0);
+            String username = cursor.getString(1);
+            String date = cursor.getString(2);
+            String checkIn = cursor.getString(3);
+            String checkOut = cursor.getString(4);
+
+            String workingHours = calculateWorkingHours(checkIn, checkOut);
+
+            AttendanceModel model = new AttendanceModel(
+                    id,
+                    username,
+                    date,
+                    checkIn,
+                    checkOut,
+                    workingHours
+            );
+
+            //model.setWorkingHours(workingHours);
+
+            attendanceList.add(model);
         }
 
-        // initially show all
         displayList.clear();
         displayList.addAll(attendanceList);
 
         adapter = new AttendanceAdapter(this, displayList);
         recyclerView.setAdapter(adapter);
     }
+    private String calculateWorkingHours(String checkIn, String checkOut) {
+
+        if (checkOut == null || checkOut.isEmpty()) {
+            return "Not checked out";
+        }
+
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
+
+            Date inTime = sdf.parse(checkIn);
+            Date outTime = sdf.parse(checkOut);
+
+            long diff = outTime.getTime() - inTime.getTime();
+
+            long hours = diff / (1000 * 60 * 60);
+            long minutes = (diff / (1000 * 60)) % 60;
+
+            return hours + " hrs " + minutes + " mins";
+
+        } catch (Exception e) {
+            return "Error";
+        }
+    }
+
 }

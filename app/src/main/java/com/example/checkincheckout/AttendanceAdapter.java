@@ -35,13 +35,16 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         AttendanceModel model = list.get(position);
+
         holder.name.setText("Username: " + model.getUsername());
+        holder.date.setText("Date:"+ model.getDate());
         holder.checkIn.setText("Check-in: " + model.getCheckIn());
         if(model.getCheckOut() != null) {
             holder.checkOut.setText("Check-out: " + model.getCheckOut());
         } else {
             holder.checkOut.setText("Check-out: Not yet");
         }
+        holder.working_hours.setText("Working_hours:" +model.getWorkingHours());
 
     }
 
@@ -52,12 +55,14 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
 
     class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, checkIn, checkOut;
+        TextView name, checkIn, checkOut,date,working_hours;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.UserName);
+            date=itemView.findViewById(R.id.Date);
             checkIn = itemView.findViewById(R.id.CheckIn);
             checkOut = itemView.findViewById(R.id.CheckOut);
+            working_hours= itemView.findViewById(R.id.working_hours);
 
         }
     }

@@ -77,17 +77,6 @@
         android:gravity="center"
         android:layout_marginTop="20dp">
 
-        <Button
-            android:id="@+id/Admin"
-            android:layout_width="wrap_content"
-            android:layout_height="60dp"
-            android:layout_margin="8dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:text="Admin Register"
-            android:textColor="@color/white"
-            app:backgroundTint="#121212"
-            app:cornerRadius="16dp"/>
 
         <Button
             android:id="@+id/User"
