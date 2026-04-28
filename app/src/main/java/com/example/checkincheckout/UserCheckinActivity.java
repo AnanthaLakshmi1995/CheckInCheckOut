@@ -80,7 +80,6 @@ public class UserCheckinActivity extends AppCompatActivity {
             validateFaceAndProceed();
         });
     }
-
     private void performAction() {
 
         String currentDate = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault()).format(new Date());
@@ -90,7 +89,7 @@ public class UserCheckinActivity extends AppCompatActivity {
 
             db.insertAttendance(userName, time, currentDate);
 
-            Toast.makeText(this, "Check-In Successful", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Check-In Successfully", Toast.LENGTH_SHORT).show();
 
             setCheckoutReminder();
 
@@ -259,6 +258,7 @@ public class UserCheckinActivity extends AppCompatActivity {
                         .build();
 
         WorkManager.getInstance(this).enqueue(workRequest);
+
 
         long futureTime = System.currentTimeMillis() + (delaySeconds * 1000);
 

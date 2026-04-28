@@ -8,6 +8,7 @@
     android:padding="25dp"
     android:background="@drawable/background"
     android:orientation="vertical">
+    <include layout="@layout/header"/>
 
 
 <TextView
