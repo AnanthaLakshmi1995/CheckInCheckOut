@@ -3,6 +3,8 @@ package com.example.checkincheckout;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -80,30 +82,37 @@ public class ViewUsersActivity extends AppCompatActivity {
         });
 
     }
-    private void loadUsers()
-    {
+    private void loadUsers() {
         Cursor cursor = db.getAllUsers();
 
-        if (cursor.getCount() == 0)
-        {
+        if (cursor.getCount() == 0) {
             Toast.makeText(this, "No users found", Toast.LENGTH_SHORT).show();
             return;
         }
 
         userList.clear();
-        while (cursor.moveToNext())
-        {
-            userList.add(new UserModel(
-                    cursor.getInt(cursor.getColumnIndexOrThrow("id")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("username")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("email")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("password")),
-                    cursor.getString(cursor.getColumnIndexOrThrow("phone"))
-            ));
+
+        while (cursor.moveToNext()) {
+
+            int id = cursor.getInt(cursor.getColumnIndexOrThrow("id"));
+            String username = cursor.getString(cursor.getColumnIndexOrThrow("username"));
+            String email = cursor.getString(cursor.getColumnIndexOrThrow("email"));
+            String password = cursor.getString(cursor.getColumnIndexOrThrow("password"));
+            String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
+            byte[] imageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow("face_data"));
+           // byte[] imageBytes = cursor.getBlob(cursor.getColumnIndexOrThrow("face"));
+
+            Bitmap bitmap = null;
+            if (imageBytes != null) {
+                bitmap = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
+            }
+
+            userList.add(new UserModel(id, username, email, password, phone, bitmap));
         }
 
         displayList.clear();
         displayList.addAll(userList);
+
         adapter = new UserAdapter(this, displayList);
         recyclerView.setAdapter(adapter);
     }

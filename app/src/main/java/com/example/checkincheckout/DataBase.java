@@ -7,6 +7,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DataBase extends SQLiteOpenHelper {
 
@@ -21,13 +22,13 @@ public class DataBase extends SQLiteOpenHelper {
     }
 
     public DataBase(Context context) {
-        super(context, DB_NAME, null, 8); // increase version
+        super(context, DB_NAME, null, 9);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL("CREATE TABLE admin(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, email TEXT, password TEXT)");
+        db.execSQL("CREATE TABLE admin(id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT)");
 
         db.execSQL("CREATE TABLE users(id INTEGER PRIMARY KEY AUTOINCREMENT, username TEXT, email TEXT, phone TEXT, password TEXT, face_data BLOB)");
 
@@ -39,6 +40,8 @@ public class DataBase extends SQLiteOpenHelper {
                 "check_out TEXT, " +
                 "working_hours TEXT" +
                 ")");
+        db.execSQL("INSERT INTO admin(name, password) VALUES('admin','12345')");
+
     }
 
     @Override
@@ -48,21 +51,9 @@ public class DataBase extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS admin");
         onCreate(db);
     }
-    public boolean insertAdmin(String name, String email, String password) {
 
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues cv = new ContentValues();
-        cv.put("name", name);
-        cv.put("email", email);
-        cv.put("password", password);
-
-        long result = db.insert("admin", null, cv);
-
-        return result != -1;
-    }
     // ✅ Insert Attendance
-    public void insertAttendance(String username, String checkIn, String date) {
+    public void insertAttendance(String username, String checkIn, String date,String working_hours) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -71,23 +62,42 @@ public class DataBase extends SQLiteOpenHelper {
         values.put("check_in", checkIn);
         values.put("check_out", (String) null);
         values.put("date", date);
+        values.put("working_hours",working_hours);
 
         db.insert("attendance", null, values);
     }
+    public boolean insertAdmin(String name, String password) {
 
-    // ✅ Update Checkout
-    public void updateCheckOut(String username, String checkOutTime) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues cv = new ContentValues();
+        cv.put("name", name);
+        cv.put("password", password);
+
+        long result = db.insert("admin", null, cv);
+
+        if (result == -1) {
+            Log.e("DB", "Admin Insert Failed");
+        } else {
+            Log.d("DB", "Admin Insert Success ID: " + result);
+        }
+
+        return result != -1;
+    }
+
+    public void updateCheckOut(String username, String checkOutTime, String workingHours) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         db.execSQL(
-                "UPDATE attendance SET check_out=? WHERE id = (" +
+                "UPDATE attendance SET check_out=?, working_hours=? WHERE id = (" +
                         "SELECT id FROM attendance WHERE username=? AND check_out IS NULL ORDER BY id DESC LIMIT 1)",
-                new Object[]{checkOutTime, username}
+                new Object[]{checkOutTime, workingHours, username}
         );
     }
 
-    // ✅ Get Check-In Time
+
+
     public String getCheckInTime(String username) {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -158,17 +168,13 @@ public class DataBase extends SQLiteOpenHelper {
 
     public boolean insertUser(String username, String email, byte[] face_data,String phone,String password) {
         SQLiteDatabase db = this.getWritableDatabase();
-
         ContentValues cv = new ContentValues();
         cv.put("username", username);
         cv.put("phone",phone);
         cv.put("password",password);
         cv.put("email", email);
-        cv.put("face_data", face_data);   // ✅ only this
-
+        cv.put("face_data", face_data);
         long res = db.insert("users", null, cv);
         return res != -1;
     }
-
-
 }

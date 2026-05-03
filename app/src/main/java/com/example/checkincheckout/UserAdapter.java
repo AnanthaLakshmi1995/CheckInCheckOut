@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -41,7 +42,9 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
         holder.email.setText("Email id:" +model.getEmail());
         holder.pass.setText("Phone no:" +model.getPassword());
         holder.phone.setText("Password :" +model.getPhone());
-
+        if (model.getFace() != null) {
+            holder.face.setImageBitmap(model.getFace());
+        }
         // ✅ Button click here
        // holder.logout.setOnClickListener(v -> {
 
@@ -60,13 +63,14 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
         TextView name, email,phone,pass;
         //Button logout;
+        ImageView face;
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             name = itemView.findViewById(R.id.UserName);
             email = itemView.findViewById(R.id.Emailid);
             pass=itemView.findViewById(R.id.Password);
             phone=itemView.findViewById(R.id.Phone);
-
+            face=itemView.findViewById(R.id.FaceImage);
             //logout = itemView.findViewById(R.id.Logout); // ✅ correct place
         }
     }

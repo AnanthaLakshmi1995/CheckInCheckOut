@@ -42,7 +42,7 @@ public class ViewAttendanceActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerAttendance);
         searchuser = findViewById(R.id.searchUser);
         filter = findViewById(R.id.filter);
-logout=findViewById(R.id.Logout);
+     logout=findViewById(R.id.Logout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         db = new DataBase(this);

@@ -1,41 +1,44 @@
+
 package com.example.checkincheckout;
 
-public class UserModel
-{
-    int id;
-    String name, email,phone,password;
+import android.graphics.Bitmap;
 
-    public UserModel(int id, String name, String email, String phone,String pass)
-    {
+public class UserModel {
+
+    int id;
+    String name, email, phone, password;
+    Bitmap face;
+
+    public UserModel(int id, String name, String email, String phone, String password, Bitmap face) {
         this.id = id;
         this.name = name;
         this.email = email;
-        this.phone=phone;
-        this.password=pass;
+        this.phone = phone;
+        this.password = password;
+        this.face = face;
     }
 
-    public int getId()
-    {
+    public int getId() {
         return id;
     }
 
-    public String getUsername()
-    {
+    public String getUsername() {
         return name;
     }
 
-    public String getEmail()
-    {
+    public String getEmail() {
         return email;
     }
-    public String getPhone()
-    {
+
+    public String getPhone() {
         return phone;
     }
 
-    public String getPassword()
-    {
+    public String getPassword() {
         return password;
     }
 
+    public Bitmap getFace() {
+        return face;
+    }
 }

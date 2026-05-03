@@ -14,54 +14,47 @@ public class ReminderReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        Log.d("ReminderDebug", "Receiver triggered!");
+        String type = intent.getStringExtra("type");
 
-        NotificationManager manager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        String channelId = "attendance_channel";
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    channelId,
-                    "Reminder",
-                    NotificationManager.IMPORTANCE_HIGH
+        if ("checkin".equals(type)) {
+            NotificationHelper.showNotification(
+                    context,
+                    "Check-in Reminder",
+                    "Your check-in time is at 9:00 AM"
             );
-            manager.createNotificationChannel(channel);
+
+        } else if ("checkout".equals(type)) {
+            NotificationHelper.showNotification(
+                    context,
+                    "Check-out Reminder",
+                    "Your check-out time is approaching"
+            );
         }
-
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("Check-Out Reminder")
-                .setContentText("Time to check out!")
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true);
-
-        manager.notify(1, builder.build());
     }
 
-    private void showNotification(Context context, String title, String message) {
+public static void showNotification(Context context, String title, String message) {
 
-        String channelId = "attendance_channel";
+    NotificationManager manager =
+            (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
-        NotificationManager manager =
-                (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            NotificationChannel channel = new NotificationChannel(
-                    channelId,
-                    "Attendance Reminder",
-                    NotificationManager.IMPORTANCE_HIGH
-            );
-            manager.createNotificationChannel(channel);
-        }
+    String channelId = "reminder_channel";
 
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
-
-                .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle(title)
-                .setContentText(message)
-                .setAutoCancel(true)
-                .setPriority(NotificationCompat.PRIORITY_HIGH);
-        manager.notify((int) System.currentTimeMillis(), builder.build());
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        NotificationChannel channel = new NotificationChannel(
+                channelId,
+                "Reminders",
+                NotificationManager.IMPORTANCE_HIGH
+        );
+        manager.createNotificationChannel(channel);
     }
+
+    NotificationCompat.Builder builder = new NotificationCompat.Builder(context, channelId)
+            .setSmallIcon(R.drawable.ic_launcher_foreground)
+            .setContentTitle(title)
+            .setContentText(message)
+            .setPriority(NotificationCompat.PRIORITY_HIGH);
+
+    manager.notify((int) System.currentTimeMillis(), builder.build());
+}
 }

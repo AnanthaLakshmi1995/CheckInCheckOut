@@ -1,6 +1,9 @@
 package com.example.checkincheckout;
 
 import android.Manifest;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -24,6 +27,7 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
@@ -50,7 +54,6 @@ public class UserCheckinActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_checkin);
-
         capturedImage = findViewById(R.id.capturedImage);
         btnCheckIn = findViewById(R.id.CheckIn);
         btnCheckOut = findViewById(R.id.CheckOut);
@@ -73,6 +76,7 @@ public class UserCheckinActivity extends AppCompatActivity {
         btnCheckIn.setOnClickListener(v -> {
             isCheckIn = true;
             validateFaceAndProceed();
+
         });
 
         btnCheckOut.setOnClickListener(v -> {
@@ -87,11 +91,11 @@ public class UserCheckinActivity extends AppCompatActivity {
 
         if (isCheckIn) {
 
-            db.insertAttendance(userName, time, currentDate);
+            db.insertAttendance(userName, time, currentDate, "");
 
             Toast.makeText(this, "Check-In Successfully", Toast.LENGTH_SHORT).show();
+            setReminder(this, 8, 45, 1, "checkin");
 
-            setCheckoutReminder();
 
         } else {
 
@@ -101,13 +105,13 @@ public class UserCheckinActivity extends AppCompatActivity {
                 Toast.makeText(this, "No check-in found!", Toast.LENGTH_SHORT).show();
                 return;
             }
-
-            db.updateCheckOut(userName, time);
-
             String workingHours = calculateWorkingHours(checkInTime, time);
-            Toast.makeText(this, "Checked Out Successfully", Toast.LENGTH_SHORT).show();
+            db.updateCheckOut(userName, time, workingHours);
 
-            //Toast.makeText(this, "Working Hours: " + workingHours, Toast.LENGTH_SHORT).show();
+            setReminder(this, 17, 45, 2, "checkout");
+            //Toast.makeText(this, "Checked Out\nWorking Hours: " + workingHours, Toast.LENGTH_LONG).show();
+           Toast.makeText(this, "Checked Out Successfully", Toast.LENGTH_SHORT).show();
+
         }
 
         startActivity(new Intent(this, DashBoardActivity.class));
@@ -191,7 +195,6 @@ public class UserCheckinActivity extends AppCompatActivity {
             tickMark.setVisibility(View.VISIBLE);
         }
     }
-
     public boolean compareFaces(Bitmap bmp1, Bitmap bmp2) {
         bmp1 = resize(bmp1);
         bmp2 = resize(bmp2);
@@ -240,7 +243,6 @@ public class UserCheckinActivity extends AppCompatActivity {
         return Bitmap.createBitmap(source, 0, 0,
                 source.getWidth(), source.getHeight(), matrix, true);
     }
-
     private Bitmap getRegisteredFaceFromDB(String username) {
         byte[] faceBytes = db.getUserFace(username);
         if (faceBytes == null) return null;
@@ -248,25 +250,7 @@ public class UserCheckinActivity extends AppCompatActivity {
         return android.graphics.BitmapFactory.decodeByteArray(faceBytes, 0, faceBytes.length);
     }
 
-    private void setCheckoutReminder() {
 
-        int delaySeconds = 10;
-
-        OneTimeWorkRequest workRequest =
-                new OneTimeWorkRequest.Builder(ReminderWorker.class)
-                        .setInitialDelay(delaySeconds, TimeUnit.SECONDS)
-                        .build();
-
-        WorkManager.getInstance(this).enqueue(workRequest);
-
-
-        long futureTime = System.currentTimeMillis() + (delaySeconds * 1000);
-
-        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
-        String reminderTime = sdf.format(new Date(futureTime));
-
-        Toast.makeText(this, "Reminder at: " + reminderTime, Toast.LENGTH_LONG).show();
-    }
     private String calculateWorkingHours(String checkIn, String checkOut) {
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss a", Locale.getDefault());
@@ -284,5 +268,30 @@ public class UserCheckinActivity extends AppCompatActivity {
         } catch (Exception e) {
             return "0 hrs";
         }
+    }
+    private void setReminder(Context context, int hour, int minute, int requestCode, String type) {
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+
+        Intent intent = new Intent(context, ReminderReceiver.class);
+        intent.putExtra("type", type);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                requestCode,
+                intent,
+                PendingIntent.FLAG_IMMUTABLE
+        );
+        AlarmManager alarmManager =
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+        );
     }
 }

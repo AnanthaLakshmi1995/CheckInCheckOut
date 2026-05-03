@@ -8,9 +8,9 @@
     android:padding="25dp"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:background="@drawable/background"
+    android:background="#87CEEB"
     tools:context=".AdminDashBoardActivity">
-    <include layout="@layout/header"/>
+
     <TextView
         android:id="@+id/Title"
         android:layout_width="match_parent"

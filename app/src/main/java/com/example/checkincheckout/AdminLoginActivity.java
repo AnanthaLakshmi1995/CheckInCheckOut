@@ -15,34 +15,37 @@ public class AdminLoginActivity extends AppCompatActivity {
     DataBase db;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
-    {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_login);
-        adminName = findViewById(R.id.Username);
-        adminPassword = findViewById(R.id.Password);
-        loginBtn = findViewById(R.id.Login);
+    protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            setContentView(R.layout.activity_admin_login);
 
-        db = DataBase.getInstance(this);
+            adminName = findViewById(R.id.Username);
+            adminPassword = findViewById(R.id.Password);
+            loginBtn = findViewById(R.id.Login);
 
-        loginBtn.setOnClickListener(v ->
-        {
-            String name = adminName.getText().toString().trim();
-            String pass = adminPassword.getText().toString().trim();
+            db = DataBase.getInstance(this);
+           // db.insertAdmin("admin", "12345");
 
-            if (db.loginAdmin(name, pass))
-            {
-                Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this,AdminDashBoardActivity.class);
-                intent.putExtra("username", name);
-                startActivity(intent);
-                finish();
-            }
-            else
-            {
-                Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
-            }
-        });
+            loginBtn.setOnClickListener(v -> {
+
+                String name = adminName.getText().toString().trim();
+                String pass = adminPassword.getText().toString().trim();
+
+                // ✅ Correct method
+                if (db.loginAdmin(name, pass)) {
+
+                    Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
+
+                    Intent intent = new Intent(this, AdminDashBoardActivity.class);
+                    intent.putExtra("username", name);
+                    startActivity(intent);
+                    finish();
+
+                } else {
+                    Toast.makeText(this, "Invalid Credentials", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        }
     }
 
-}

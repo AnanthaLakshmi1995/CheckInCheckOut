@@ -6,9 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    android:background="@drawable/background"
+    android:background="#87CEEB"
     android:orientation="vertical">
-    <include layout="@layout/header"/>
     <TextView
         android:id="@+id/Title"
         android:layout_width="match_parent"

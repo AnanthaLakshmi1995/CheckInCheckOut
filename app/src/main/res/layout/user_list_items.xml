@@ -1,8 +1,8 @@
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
-    android:background="@drawable/details">
+    android:layout_height="280dp"
+    android:background="#87CEEB">
 
     <TextView
         android:id="@+id/UserName"
@@ -46,11 +46,21 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"/>
 
+    <ImageView
+        android:id="@+id/FaceImage"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+      android:text="Face:"
+        android:layout_below="@id/Phone"
+        android:layout_marginTop="20dp"
+        android:scaleType="centerCrop"
+        android:layout_marginStart="150dp"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/Phone"
-        android:layout_marginTop="45dp"/>
+        android:layout_below="@id/FaceImage"
+        android:layout_marginTop="50dp"/>
   
 </RelativeLayout>

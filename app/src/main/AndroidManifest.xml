@@ -5,6 +5,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
+    <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/>
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -19,6 +20,9 @@
             android:exported="false" />
         <activity
             android:name=".ViewAttendanceActivity"
+            android:exported="false" />
+        <activity
+            android:name=".NotificationHelper"
             android:exported="false" />
         <activity
             android:name=".ViewUsersActivity"
@@ -40,9 +44,7 @@
         <activity
             android:name=".UserRegisterActivity"
             android:exported="false" />
-        <activity
-            android:name=".AdminRegisterActivity"
-            android:exported="false" />
+
         <activity
             android:name=".DashBoardActivity"
             android:exported="false" />

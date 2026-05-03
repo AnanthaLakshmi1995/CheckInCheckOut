@@ -44,7 +44,7 @@ public class AttendanceAdapter extends RecyclerView.Adapter<AttendanceAdapter.Vi
         } else {
             holder.checkOut.setText("Check-out: Not yet");
         }
-        holder.working_hours.setText("Working_hours:" +model.getWorkingHours());
+        holder.working_hours.setText("Working_hours: " +model.getWorkingHours());
 
     }
 
