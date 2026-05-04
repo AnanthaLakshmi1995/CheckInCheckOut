@@ -36,30 +36,38 @@
         android:text="Reports"
         android:textColor="#FFFFFF"
         android:textSize="12sp" />
+
     <Button
         android:id="@+id/ViewUsers"
-        android:text="View Users Details"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dp"
+        android:text="View Users Details"
+        android:textColor="@color/white"
         app:backgroundTint="#121212"
-        app:cornerRadius="16dp"
-        android:textColor="@color/white"/>
+        android:layout_gravity="center"
+
+
+        app:cornerRadius="16dp" />
     <Button
         android:id="@+id/ViewAttendance"
         android:text="View Users Attendance"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
+        android:layout_gravity="center"
+
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/Logout"
         android:text="LogOut"
-        android:layout_width="match_parent"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
+        android:layout_gravity="center"
+
         android:textColor="@color/white"/>
 
 </LinearLayout>

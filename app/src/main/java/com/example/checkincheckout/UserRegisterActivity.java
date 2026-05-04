@@ -1,6 +1,9 @@
 package com.example.checkincheckout;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
 import android.os.Bundle;
@@ -15,7 +18,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
-
+import java.util.Calendar;
+import android.content.Context;
 public class UserRegisterActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 100;
     EditText userName, userEmail,userPhone,userPass;
@@ -38,6 +42,12 @@ public class UserRegisterActivity extends AppCompatActivity {
         tickMark = findViewById(R.id.tickMark);
         registerBtn = findViewById(R.id.Register);
         //gotoBtn = findViewById(R.id.CheckinCheckout);
+        SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+
+        prefs.edit()
+                .putString("username", userName.getText().toString().trim())
+                .putString("email", userEmail.getText().toString().trim())
+                .apply();
         camera.setOnClickListener(v -> openCamera());
         registerBtn.setOnClickListener(v -> registerUser());
     }
@@ -105,6 +115,16 @@ public class UserRegisterActivity extends AppCompatActivity {
         if (success)
         {
             Toast.makeText(this, "User Registered Successfully!", Toast.LENGTH_SHORT).show();
+            new Thread(() -> {
+                EmailHelper.sendMail(
+                        email,
+                        "Welcome to CheckIn App",
+                        "Hi " + name + ",\n\nYour account is created successfully."
+                );
+            }).start();
+
+            setReminder(this, 8, 45, 1, "checkin");
+            setReminder(this, 17, 43, 2, "checkout");
             Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
             intent.putExtra("username", name);
             startActivity(intent);
@@ -160,4 +180,44 @@ public class UserRegisterActivity extends AppCompatActivity {
         Bitmap cropped = Bitmap.createBitmap(rotated, x, y, size, size);
         return Bitmap.createScaledBitmap(cropped, 200, 200, true);
     }
+
+    private void setReminder(Context context, int hour, int minute, int requestCode, String type) {
+
+        AlarmManager alarmManager =
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(context, ReminderReceiver.class);
+        intent.putExtra("type", type);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(
+                context,
+                requestCode,
+                intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+        );
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.HOUR_OF_DAY, hour);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // If time already passed → schedule for next day
+        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
+
+        // 🔥 Cancel old alarm first (prevents duplicate triggers)
+        alarmManager.cancel(pendingIntent);
+
+        // 🔥 Set exact repeating daily alarm
+        alarmManager.setRepeating(
+                AlarmManager.RTC_WAKEUP,
+                calendar.getTimeInMillis(),
+                AlarmManager.INTERVAL_DAY,
+                pendingIntent
+        );
+    }
+
+
 }

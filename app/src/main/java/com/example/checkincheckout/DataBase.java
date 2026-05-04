@@ -177,4 +177,56 @@ public class DataBase extends SQLiteOpenHelper {
         long res = db.insert("users", null, cv);
         return res != -1;
     }
+    public String getUserEmail(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT email FROM users WHERE username=?",
+                new String[]{username}
+        );
+
+        if (cursor.moveToFirst()) {
+            String email = cursor.getString(0);
+            cursor.close();
+            return email;
+        }
+
+        cursor.close();
+        return null;
+    }
+
+    public boolean hasCheckedInToday(String username, String date) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM attendance WHERE username=? AND date=? AND check_in IS NOT NULL",
+                new String[]{username, date}
+        );
+
+        boolean exists = cursor.getCount() > 0;
+
+        cursor.close();
+
+        return exists;
+    }
+    public boolean hasCheckedOutToday(String username, String date) {
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery(
+                "SELECT * FROM attendance WHERE username=? AND date=? AND checkout IS NOT NULL",
+                new String[]{username, date}
+        );
+
+        boolean exists = cursor.getCount() > 0;
+
+        cursor.close();
+
+        return exists;
+    }
+    public Cursor getAllUserEmails() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT email, username FROM users", null);
+    }
 }

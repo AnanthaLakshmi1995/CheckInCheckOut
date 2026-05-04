@@ -2,8 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#87CEEB">
@@ -12,58 +10,62 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="1dp"
-        android:text="User DashBoard Screen"
+        android:layout_marginTop="45dp"
+        android:text="User Dashboard Screen"
         android:textAlignment="center"
         android:textSize="25sp"
-        android:textStyle="bold"
-        android:textColor="#0D47A1"/>
+        android:textStyle="bold" />
+    <!-- 🔝 TOP BAR -->
 
-    <ImageView
-        android:id="@+id/capturedImage"
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:layout_marginTop="35dp"
-        android:background="@drawable/circle_bg"
-        android:clipToOutline="true"
-        android:src="@drawable/face"
-        android:scaleType="centerCrop" />
-    <ImageView
-        android:id="@+id/tickMark"
+    <LinearLayout
+        android:orientation="vertical"
+        android:padding="24dp"
+        android:gravity="center"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:src="@android:drawable/checkbox_on_background"
-        android:layout_gravity="bottom|end"
-        android:visibility="gone"/>
+        android:layout_height="match_parent">
 
-    <Button
-        android:id="@+id/Camera"
-        android:text="Capture Face"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="45dp"
-        app:backgroundTint="#121212"
-        app:cornerRadius="16dp"
-        android:textColor="@color/white"/>
 
-    <Button
-        android:id="@+id/CheckIn"
-        android:text="Check In"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="45dp"
-        app:backgroundTint="#121212"
-        app:cornerRadius="16dp"
-        android:textColor="@color/white"/>
+        <ImageView
+            android:id="@+id/capturedImage"
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:layout_marginTop="0dp"
+            android:background="@drawable/circle_bg"
+            android:clipToOutline="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/face" />
 
-    <Button
-        android:id="@+id/CheckOut"
-        android:text="Check Out"
-        android:layout_width="200dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="45dp"
-        app:backgroundTint="#121212"
-        app:cornerRadius="16dp"
-        android:textColor="@color/white"/>
+        <Button
+            android:id="@+id/Camera"
+            android:text="Capture Face"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            app:backgroundTint="#121212"
+
+            app:cornerRadius="16dp"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/CheckIn"
+            android:text="Check In"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:backgroundTint="#121212"
+            app:cornerRadius="16dp"
+            android:textColor="@android:color/white"/>
+
+        <Button
+            android:id="@+id/CheckOut"
+            android:text="Check Out"
+            android:layout_width="200dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="20dp"
+            app:backgroundTint="#121212"
+            app:cornerRadius="16dp"
+            android:textColor="@android:color/white"/>
+
+    </LinearLayout>
 
 </LinearLayout>

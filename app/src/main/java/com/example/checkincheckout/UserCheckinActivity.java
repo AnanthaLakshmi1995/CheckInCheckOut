@@ -5,8 +5,10 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.location.Location;
 import android.os.Bundle;
@@ -15,10 +17,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.work.OneTimeWorkRequest;
 import androidx.work.WorkManager;
@@ -34,17 +38,15 @@ import java.util.concurrent.TimeUnit;
 
 public class UserCheckinActivity extends AppCompatActivity {
 
-    ImageView capturedImage, tickMark;
+    ImageView capturedImage;
     Button btnCheckIn, btnCheckOut, cameraBtn;
 
     DataBase db;
     String userName;
 
     private static final int CAMERA_REQUEST = 100;
-
     Bitmap capturedFaceBitmap = null;
     FusedLocationProviderClient fusedLocationClient;
-
     double officeLat = 16.5907263;
     double officeLng = 82.018323;
 
@@ -53,12 +55,14 @@ public class UserCheckinActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_user_checkin);
+
         capturedImage = findViewById(R.id.capturedImage);
         btnCheckIn = findViewById(R.id.CheckIn);
         btnCheckOut = findViewById(R.id.CheckOut);
         cameraBtn = findViewById(R.id.Camera);
-        tickMark = findViewById(R.id.tickMark);
+        //tickMark = findViewById(R.id.tickMark);
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         db = DataBase.getInstance(this);
@@ -83,6 +87,9 @@ public class UserCheckinActivity extends AppCompatActivity {
             isCheckIn = false;
             validateFaceAndProceed();
         });
+
+
+
     }
     private void performAction() {
 
@@ -192,15 +199,19 @@ public class UserCheckinActivity extends AppCompatActivity {
             Bitmap original = (Bitmap) data.getExtras().get("data");
             capturedFaceBitmap = processFace(original);
             capturedImage.setImageBitmap(capturedFaceBitmap);
-            tickMark.setVisibility(View.VISIBLE);
+            //tickMark.setVisibility(View.VISIBLE);
         }
     }
+
     public boolean compareFaces(Bitmap bmp1, Bitmap bmp2) {
+
         bmp1 = resize(bmp1);
         bmp2 = resize(bmp2);
 
-        int matchCount = 0;
-        int totalPixels = bmp1.getWidth() * bmp1.getHeight();
+        int total = bmp1.getWidth() * bmp1.getHeight();
+
+        long sum1 = 0;
+        long sum2 = 0;
 
         for (int i = 0; i < bmp1.getWidth(); i++) {
             for (int j = 0; j < bmp1.getHeight(); j++) {
@@ -208,22 +219,31 @@ public class UserCheckinActivity extends AppCompatActivity {
                 int p1 = bmp1.getPixel(i, j);
                 int p2 = bmp2.getPixel(i, j);
 
-                int diff = Math.abs(((p1 >> 16) & 0xff) - ((p2 >> 16) & 0xff)) +
-                        Math.abs(((p1 >> 8) & 0xff) - ((p2 >> 8) & 0xff)) +
-                        Math.abs((p1 & 0xff) - (p2 & 0xff));
+                int gray1 = (int)(0.3 * ((p1 >> 16) & 0xff) +
+                        0.59 * ((p1 >> 8) & 0xff) +
+                        0.11 * (p1 & 0xff));
 
-                if (diff < 100) matchCount++;
+                int gray2 = (int)(0.3 * ((p2 >> 16) & 0xff) +
+                        0.59 * ((p2 >> 8) & 0xff) +
+                        0.11 * (p2 & 0xff));
+
+                sum1 += gray1;
+                sum2 += gray2;
             }
         }
 
-        float similarity = (float) matchCount / totalPixels;
-        Log.d("DEBUG", "Similarity: " + similarity);
+        float avg1 = sum1 / (float) total;
+        float avg2 = sum2 / (float) total;
 
-        return similarity > 0.45;
+        float diff = Math.abs(avg1 - avg2);
+
+        Log.d("FACE", "Avg1: " + avg1 + " Avg2: " + avg2 + " Diff: " + diff);
+
+        // 🔥 KEY CHANGE (tolerance)
+        return diff < 25;
     }
-
-    private Bitmap resize(Bitmap image) {
-        return Bitmap.createScaledBitmap(image, 200, 200, true);
+    private Bitmap resize(Bitmap bmp1) {
+        return bmp1;
     }
 
     private Bitmap processFace(Bitmap original) {
@@ -249,7 +269,6 @@ public class UserCheckinActivity extends AppCompatActivity {
 
         return android.graphics.BitmapFactory.decodeByteArray(faceBytes, 0, faceBytes.length);
     }
-
 
     private String calculateWorkingHours(String checkIn, String checkOut) {
         try {
@@ -285,8 +304,9 @@ public class UserCheckinActivity extends AppCompatActivity {
                 intent,
                 PendingIntent.FLAG_IMMUTABLE
         );
-        AlarmManager alarmManager =
-                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
         alarmManager.setRepeating(
                 AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
@@ -294,4 +314,5 @@ public class UserCheckinActivity extends AppCompatActivity {
                 pendingIntent
         );
     }
+
 }

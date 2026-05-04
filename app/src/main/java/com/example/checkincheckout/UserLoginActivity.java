@@ -1,6 +1,8 @@
 package com.example.checkincheckout;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
@@ -24,7 +26,6 @@ public class UserLoginActivity extends AppCompatActivity {
         userName = findViewById(R.id.Username);
         userPassword = findViewById(R.id.Password);
        loginBtn = findViewById(R.id.Login);
-
        db = DataBase.getInstance(this);
 
         loginBtn.setOnClickListener(v ->
@@ -35,6 +36,12 @@ public class UserLoginActivity extends AppCompatActivity {
             if (db.loginUser(name, pass))
             {
                 Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
+                SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+                //SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+                prefs.edit().putString("username", name).apply();
+                //SharedPreferences prefs = context.getSharedPreferences("user", Context.MODE_PRIVATE);
+               // prefs.edit().putString("username", actualUsername).apply();
+                //ReminderReceiver.scheduleReminders(context);
              // startActivity(new Intent(this, UserCheckinActivity.class));
                 Intent intent = new Intent(this, UserCheckinActivity.class);
                intent.putExtra("username", name);

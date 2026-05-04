@@ -1,10 +1,15 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="Theme.CheckinCheckout" parent="Theme.MaterialComponents.Light.NoActionBar">
-        <item name="android:statusBarColor">@color/black</item>
+    <style name="Theme.CheckApp" parent="Theme.Material3.DayNight.NoActionBar">
 
-        <!-- ✅ Disable transparent status bar -->
-        <item name="android:windowTranslucentStatus">false</item>
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name="android:colorBackground">@color/background</item>
+
+        <!-- ADD THESE (missing = crash) -->
+        <item name="colorOnBackground">@color/text_primary</item>
+        <item name="colorSurface">@color/surface</item>
+        <item name="colorOnSurface">@color/text_primary</item>
 
     </style>
 </resources>

@@ -1,0 +1,11 @@
+<resources>
+
+    <color name="background">#121212</color>
+    <color name="surface">#1E1E1E</color>
+
+    <color name="text_primary">#FFFFFF</color>
+    <color name="text_secondary">#B0B0B0</color>
+
+    <color name="primary">#90CAF9</color>
+
+</resources>

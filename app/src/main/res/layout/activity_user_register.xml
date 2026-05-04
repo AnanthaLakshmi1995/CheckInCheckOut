@@ -76,7 +76,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="45dp"
         app:backgroundTint="#121212"
-        android:layout_marginStart="100dp"
+        android:layout_gravity="center"
         app:cornerRadius="16dp"
         android:textColor="@color/white"/>
     <Button
@@ -85,7 +85,8 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:layout_marginTop="34dp"
-        android:layout_marginStart="100dp"
+        android:layout_gravity="center"
+
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
         android:textColor="@color/white"/>

@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+
     namespace = "com.example.checkincheckout"
     compileSdk {
         version = release(36) {
@@ -17,8 +18,16 @@ android {
         targetSdk = 36
         versionCode = 1
         versionName = "1.0"
+    }
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    // 🔥 ADD THIS BLOCK HERE
+    packaging {
+        resources {
+            excludes += setOf(
+                "META-INF/NOTICE.md",
+                "META-INF/LICENSE.md"
+            )
+        }
     }
 
     buildTypes {
@@ -30,10 +39,12 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+
     buildFeatures {
         compose = true
     }
@@ -54,6 +65,8 @@ dependencies {
     implementation(libs.androidx.constraintlayout)
     implementation(libs.play.services.location)
     implementation(libs.androidx.work.runtime)
+    implementation("com.sun.mail:android-mail:1.6.7")
+    implementation("com.sun.mail:android-activation:1.6.7")
     testImplementation(libs.junit)
     implementation("androidx.work:work-runtime:2.9.0")
     androidTestImplementation(libs.androidx.junit)
@@ -62,4 +75,6 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+
+
 }
