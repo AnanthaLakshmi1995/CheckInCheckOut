@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class AdminLoginActivity extends AppCompatActivity {
@@ -22,7 +23,19 @@ public class AdminLoginActivity extends AppCompatActivity {
             adminName = findViewById(R.id.Username);
             adminPassword = findViewById(R.id.Password);
             loginBtn = findViewById(R.id.Login);
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
 
+                new androidx.appcompat.app.AlertDialog.Builder(AdminLoginActivity.this)
+                        .setTitle("Exit App")
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialog, which) -> finish())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
+        });
             db = DataBase.getInstance(this);
            // db.insertAdmin("admin", "12345");
 

@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
 
@@ -23,45 +24,51 @@ public class WelcomeActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
-        // 🔥 THEME FIRST
-        SharedPreferences themePrefs = getSharedPreferences("theme", MODE_PRIVATE);
-        boolean isDark = themePrefs.getBoolean("darkMode", false);
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_welcome);
+        Image = findViewById(R.id.Image);
+        start = findViewById(R.id.Start);
 
+        ImageView themeIcon = findViewById(R.id.themeIcon);
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                new androidx.appcompat.app.AlertDialog.Builder(WelcomeActivity.this)
+                        .setTitle("Exit App")
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialog, which) -> finish())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
+        });
+        SharedPreferences prefs = getSharedPreferences("theme", MODE_PRIVATE);
+        boolean isDark = prefs.getBoolean("darkMode", false);
         AppCompatDelegate.setDefaultNightMode(
                 isDark ? AppCompatDelegate.MODE_NIGHT_YES
                         : AppCompatDelegate.MODE_NIGHT_NO
         );
+// set icon initially
+        themeIcon.setImageResource(isDark ? R.drawable.ic_dark_mode : R.drawable.ic_light_mode);
 
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_welcome);
-
-
-
-
-        Image = findViewById(R.id.Image);
-        start = findViewById(R.id.Start);
-        ImageView themeIcon = findViewById(R.id.themeIcon);
-
-        // ✅ Set correct icon
-        themeIcon.setImageResource(
-                isDark ? R.drawable.ic_dark_mode : R.drawable.ic_light_mode
-        );
-
-        // 🔥 Theme toggle
         themeIcon.setOnClickListener(v -> {
 
-            boolean current = themePrefs.getBoolean("darkMode", false);
-            boolean newMode = !current;
+            boolean currentMode = prefs.getBoolean("darkMode", false);
+            boolean newMode = !currentMode;
 
-            themePrefs.edit().putBoolean("darkMode", newMode).apply();
+            prefs.edit().putBoolean("darkMode", newMode).apply();
 
             AppCompatDelegate.setDefaultNightMode(
                     newMode ? AppCompatDelegate.MODE_NIGHT_YES
                             : AppCompatDelegate.MODE_NIGHT_NO
             );
 
-            recreate();
+            // 🔥 IMPORTANT: update icon
+            themeIcon.setImageResource(
+                    newMode ? R.drawable.ic_dark_mode : R.drawable.ic_light_mode
+            );
         });
 
         start.setOnClickListener(v -> {

@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -40,6 +42,19 @@ public class ViewUsersActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycleUsers);
         logout=findViewById(R.id.Logout);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                new androidx.appcompat.app.AlertDialog.Builder(ViewUsersActivity.this)
+                        .setTitle("Exit App")
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialog, which) -> finish())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
+        });
         db = new DataBase(this);
           loadUsers();
         logout.setOnClickListener(v -> {

@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.BreakIterator;
@@ -27,7 +29,19 @@ public class UserLoginActivity extends AppCompatActivity {
         userPassword = findViewById(R.id.Password);
        loginBtn = findViewById(R.id.Login);
        db = DataBase.getInstance(this);
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
 
+                new androidx.appcompat.app.AlertDialog.Builder(UserLoginActivity.this)
+                        .setTitle("Exit App")
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialog, which) -> finish())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
+        });
         loginBtn.setOnClickListener(v ->
         {
            String name = userName.getText().toString().trim();

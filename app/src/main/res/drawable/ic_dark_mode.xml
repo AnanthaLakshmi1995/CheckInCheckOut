@@ -3,7 +3,8 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-
+    <color name="bg_color">#000000</color>
+    <color name="text_color">#121212</color>
     <path
         android:fillColor="#7272"
 

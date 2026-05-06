@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -18,7 +19,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 public class DashBoardActivity extends AppCompatActivity {
-    Button user,login;
+    Button user,login,capture;
     EditText username,password;
     //Button checkin;
     DataBase db;
@@ -31,10 +32,23 @@ public class DashBoardActivity extends AppCompatActivity {
         password = findViewById(R.id.Password);
         login = findViewById(R.id.Login);
         user = findViewById(R.id.User);
+        capture=findViewById(R.id.Capture);
         //TextView title = findViewById(R.id.appTitle);
        // title.setText("Admin Dashboard");
         db = new DataBase(this);
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
 
+                new androidx.appcompat.app.AlertDialog.Builder(DashBoardActivity.this)
+                        .setTitle("Exit App")
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialog, which) -> finish())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
+        });
         String userName = getSharedPreferences("MyApp", MODE_PRIVATE)
                 .getString("username", null);
         login.setOnClickListener(v -> {
@@ -59,6 +73,11 @@ public class DashBoardActivity extends AppCompatActivity {
         user.setOnClickListener(v -> {
             Intent intent = new Intent(DashBoardActivity.this, UserRegisterActivity.class);
             startActivity(intent);
+        });
+
+        capture.setOnClickListener( v ->{
+            startActivity(new Intent(this, DocumentActivity.class));
+
         });
 
     }

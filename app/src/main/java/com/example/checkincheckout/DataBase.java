@@ -52,7 +52,6 @@ public class DataBase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    // ✅ Insert Attendance
     public void insertAttendance(String username, String checkIn, String date,String working_hours) {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -194,7 +193,6 @@ public class DataBase extends SQLiteOpenHelper {
         cursor.close();
         return null;
     }
-
     public boolean hasCheckedInToday(String username, String date) {
 
         SQLiteDatabase db = this.getReadableDatabase();
@@ -215,7 +213,7 @@ public class DataBase extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.rawQuery(
-                "SELECT * FROM attendance WHERE username=? AND date=? AND checkout IS NOT NULL",
+                "SELECT * FROM attendance WHERE username=? AND date=? AND check_out IS NOT NULL",
                 new String[]{username, date}
         );
 

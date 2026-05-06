@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -63,7 +64,19 @@ public class UserCheckinActivity extends AppCompatActivity {
         btnCheckOut = findViewById(R.id.CheckOut);
         cameraBtn = findViewById(R.id.Camera);
         //tickMark = findViewById(R.id.tickMark);
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
 
+                new androidx.appcompat.app.AlertDialog.Builder(UserCheckinActivity.this)
+                        .setTitle("Exit App")
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialog, which) -> finish())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
+        });
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         db = DataBase.getInstance(this);
 

@@ -6,12 +6,16 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Matrix;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.provider.Settings;
 import android.util.Base64;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.*;
+
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -24,7 +28,7 @@ public class UserRegisterActivity extends AppCompatActivity {
     private static final int CAMERA_REQUEST = 100;
     EditText userName, userEmail,userPhone,userPass;
     ImageView  faceImage,tickMark;
-    Button registerBtn,camera ,gotoBtn;
+    Button registerBtn,camera ;
     Bitmap capturedFaceBitmap = null;
     DataBase db;
 
@@ -42,6 +46,19 @@ public class UserRegisterActivity extends AppCompatActivity {
         tickMark = findViewById(R.id.tickMark);
         registerBtn = findViewById(R.id.Register);
         //gotoBtn = findViewById(R.id.CheckinCheckout);
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+
+                new androidx.appcompat.app.AlertDialog.Builder(UserRegisterActivity.this)
+                        .setTitle("Exit App")
+                        .setMessage("Are you sure you want to exit?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", (dialog, which) -> finish())
+                        .setNegativeButton("No", (dialog, which) -> dialog.dismiss())
+                        .show();
+            }
+        });
         SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
 
         prefs.edit()
@@ -112,19 +129,30 @@ public class UserRegisterActivity extends AppCompatActivity {
                 .edit()
                 .putString("username", name)
                 .apply();
-        if (success)
-        {
-            Toast.makeText(this, "User Registered Successfully!", Toast.LENGTH_SHORT).show();
-            new Thread(() -> {
-                EmailHelper.sendMail(
-                        email,
-                        "Welcome to CheckIn App",
-                        "Hi " + name + ",\n\nYour account is created successfully."
-                );
-            }).start();
+        if (success) {
 
+            Toast.makeText(this, "User Registered Successfully!", Toast.LENGTH_SHORT).show();
+
+            EmailHelper.sendEmail(
+                    email,
+                    "Registration Successful",
+                    "Hello " + name + ",\n\n" +
+                            "Your registration is successful.\n\n" +
+                            "Check-in Time: 9:00AM\n" +
+                            "Check-out Time: 6:00 PM\n\n" +
+                            "You will receive reminder  emails daily."
+            );
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+                if (!alarmManager.canScheduleExactAlarms()) {
+                    Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
+                    startActivity(intent);
+                    return; // stop here until user allows
+                }
+            }
             setReminder(this, 8, 45, 1, "checkin");
-            setReminder(this, 17, 43, 2, "checkout");
+            setReminder(this, 17 , 45, 2, "checkout");
             Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
             intent.putExtra("username", name);
             startActivity(intent);
@@ -183,11 +211,11 @@ public class UserRegisterActivity extends AppCompatActivity {
 
     private void setReminder(Context context, int hour, int minute, int requestCode, String type) {
 
-        AlarmManager alarmManager =
-                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, ReminderReceiver.class);
         intent.putExtra("type", type);
+        intent.setAction(type);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
@@ -196,28 +224,25 @@ public class UserRegisterActivity extends AppCompatActivity {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
+        // 🔥 CANCEL OLD ALARM FIRST
+        alarmManager.cancel(pendingIntent);
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
         calendar.set(Calendar.SECOND, 0);
-        calendar.set(Calendar.MILLISECOND, 0);
 
-        // If time already passed → schedule for next day
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
 
-        // 🔥 Cancel old alarm first (prevents duplicate triggers)
-        alarmManager.cancel(pendingIntent);
-
-        // 🔥 Set exact repeating daily alarm
-        alarmManager.setRepeating(
+        // ✅ use exact alarm
+        alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY,
                 pendingIntent
         );
+
+
     }
-
-
 }

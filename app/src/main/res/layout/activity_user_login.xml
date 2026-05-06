@@ -23,24 +23,43 @@
         android:textAlignment="center"
     android:textSize="35dp"
         android:textStyle="bold" />
-
-
-    <EditText
-        android:id="@+id/Username"
-        android:hint="Username"
-        android:layout_marginTop="100dp"
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:drawableStart="@drawable/profile"
-        android:layout_height="wrap_content"/>
+        android:layout_marginTop="65dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
 
-    <EditText
-        android:id="@+id/Password"
-        android:hint="Password"
-        android:inputType="textPassword"
+        android:hint="Username">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/profile"
+            android:layout_gravity="center"
+
+            android:inputType="textPersonName"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/lock"
-        android:layout_marginTop="16dp"/>
+        android:layout_gravity="center"
+
+        app:endIconMode="password_toggle">
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/Password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Password"
+            android:layout_gravity="center"
+
+            android:drawableStart="@drawable/lock"
+            android:inputType="textPassword"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
 
     <Button
         android:id="@+id/Login"
@@ -50,7 +69,7 @@
         android:layout_marginTop="24dp"
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
-                android:layout_gravity="center"
+        android:layout_gravity="center"
 
         android:textColor="@color/white"/>
 </LinearLayout>

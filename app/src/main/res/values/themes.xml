@@ -1,6 +1,5 @@
 <resources>
-    <style name="Theme.CheckApp" parent="Theme.Material3.DayNight.NoActionBar">
-
+    <style name="Theme.CheckInCheckOut" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
 
@@ -13,3 +12,4 @@
 
     </style>
 </resources>
+

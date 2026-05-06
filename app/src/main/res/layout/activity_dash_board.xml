@@ -22,22 +22,26 @@
         android:textStyle="bold" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_marginTop="65dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+
         android:hint="Username">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textColor="@color/black"
             android:drawableStart="@drawable/profile"
-            android:inputType="textPersonName"/>
+            android:inputType="textPersonName" />
 
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         app:endIconMode="password_toggle">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Password"
@@ -82,10 +86,20 @@
             android:layout_margin="8dp"
             android:text="User register"
             android:layout_gravity="center"
-
             android:textColor="@color/white"
             app:backgroundTint="#121212"
             app:cornerRadius="16dp"/>
+        <Button
+            android:id="@+id/Capture"
+            android:layout_width="160dp"
+            android:layout_height="60dp"
+            android:layout_margin="8dp"
+            android:text="Capture Document"
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            app:backgroundTint="#121212"
+            app:cornerRadius="16dp"/>
+
     </LinearLayout>
 
 </LinearLayout>
