@@ -67,6 +67,24 @@ public class UserRegisterActivity extends AppCompatActivity {
                 .apply();
         camera.setOnClickListener(v -> openCamera());
         registerBtn.setOnClickListener(v -> registerUser());
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+
+            AlarmManager alarmManager =
+                    (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            if (alarmManager.canScheduleExactAlarms()) {
+
+                setReminder(this, 8, 45, 1, "checkin");
+
+                setReminder(this, 17, 45, 2, "checkout");
+            }
+
+        } else {
+
+            setReminder(this, 8, 45, 1, "checkin");
+
+            setReminder(this, 17, 45, 2, "checkout");
+        }
     }
     private void openCamera()
     {
@@ -136,23 +154,12 @@ public class UserRegisterActivity extends AppCompatActivity {
             EmailHelper.sendEmail(
                     email,
                     "Registration Successful",
-                    "Hello " + name + ",\n\n" +
-                            "Your registration is successful.\n\n" +
+                    "Hello " + name + ",\n" +
+                            "Your registration is successful.\n" +
                             "Check-in Time: 9:00AM\n" +
-                            "Check-out Time: 6:00 PM\n\n" +
+                            "Check-out Time: 6:00 PM\n" +
                             "You will receive reminder  emails daily."
             );
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
-                if (!alarmManager.canScheduleExactAlarms()) {
-                    Intent intent = new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM);
-                    startActivity(intent);
-                    return; // stop here until user allows
-                }
-            }
-            setReminder(this, 8, 45, 1, "checkin");
-            setReminder(this, 17 , 45, 2, "checkout");
             Intent intent = new Intent(UserRegisterActivity.this, UserLoginActivity.class);
             intent.putExtra("username", name);
             startActivity(intent);
@@ -212,11 +219,9 @@ public class UserRegisterActivity extends AppCompatActivity {
     private void setReminder(Context context, int hour, int minute, int requestCode, String type) {
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
         Intent intent = new Intent(context, ReminderReceiver.class);
         intent.putExtra("type", type);
         intent.setAction(type);
-
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 context,
                 requestCode,
@@ -224,9 +229,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
         );
 
-        // 🔥 CANCEL OLD ALARM FIRST
         alarmManager.cancel(pendingIntent);
-
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
         calendar.set(Calendar.MINUTE, minute);
@@ -235,14 +238,10 @@ public class UserRegisterActivity extends AppCompatActivity {
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-
-        // ✅ use exact alarm
         alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
                 pendingIntent
         );
-
-
     }
 }

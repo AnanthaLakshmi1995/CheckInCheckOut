@@ -3,8 +3,12 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <color name="bg_color">#000000</color>
-    <color name="text_color">#121212</color>
+    <style name="Theme.CheckInCheckout" parent="Theme.Material3.DayNight.NoActionBar">
+
+        <item name="colorPrimary">#1E3A5F</item>
+        <item name="android:windowBackground">#000000</item>
+
+    </style>
     <path
         android:fillColor="#7272"
 

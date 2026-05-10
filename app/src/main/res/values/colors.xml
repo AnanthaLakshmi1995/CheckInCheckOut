@@ -1,15 +1,14 @@
 <resources>
 <color name="black">#FF000000</color>
 <color name="white">#FFFFFFFF</color>
-
 <color name="primary">#1976D2</color>
 <color name="primary_dark">#1E40AF</color>
 <color name="accent">#3B82F6</color>
 
-<color name="background">#FFFFFF</color>
-<color name="surface">#FFFFFF</color>
-
-
-<color name="text_primary">#000000</color>
-<color name="text_secondary">#6B7280</color>
+<color name="background">#87CEEB</color>
+<color name="surface">#545454</color>
+    <color name="light_bg">#FFFFFF</color>
+    <color name="dark_bg">#87CEEB</color>
+<color name="text_primary">#FFFFFF</color>
+<color name="text_secondary">#000000</color>
 </resources>

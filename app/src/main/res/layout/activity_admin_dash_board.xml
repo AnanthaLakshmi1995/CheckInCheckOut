@@ -8,7 +8,7 @@
     android:padding="25dp"
     android:fitsSystemWindows="true"
     android:orientation="vertical"
-    android:background="#87CEEB"
+    android:background="?android:colorBackground"
     tools:context=".AdminDashBoardActivity">
 
     <TextView
@@ -34,7 +34,6 @@
         android:layout_marginTop="55dp"
         android:backgroundTint="#121212"
         android:text="Reports"
-        android:textColor="#FFFFFF"
         android:textSize="12sp" />
 
     <Button
@@ -46,8 +45,6 @@
         android:textColor="@color/white"
         app:backgroundTint="#121212"
         android:layout_gravity="center"
-
-
         app:cornerRadius="16dp" />
     <Button
         android:id="@+id/ViewAttendance"
@@ -57,7 +54,6 @@
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
         android:layout_gravity="center"
-
         android:textColor="@color/white"/>
     <Button
         android:id="@+id/Logout"
@@ -67,7 +63,6 @@
         app:backgroundTint="#121212"
         app:cornerRadius="16dp"
         android:layout_gravity="center"
-
         android:textColor="@color/white"/>
 
 </LinearLayout>

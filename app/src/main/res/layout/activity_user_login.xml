@@ -27,9 +27,7 @@
         android:layout_width="match_parent"
         android:layout_marginTop="65dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-
-        android:hint="Username">
+        android:layout_gravity="center">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Username"
@@ -37,6 +35,7 @@
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/profile"
             android:layout_gravity="center"
+            android:hint="Username"
 
             android:inputType="textPersonName"/>
 
@@ -45,7 +44,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-
         app:endIconMode="password_toggle">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Password"

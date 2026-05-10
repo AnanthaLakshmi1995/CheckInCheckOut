@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    android:background="#87CEEB"
+    android:background="?android:colorBackground"
     android:orientation="vertical">
 
 
@@ -52,7 +52,7 @@
         android:drawableStart="@drawable/phone"/>
     <ImageView
         android:id="@+id/FaceImage"
-        android:layout_width="250dp"
+          android:layout_width="250dp"
         android:layout_height="250dp"
         android:background="@drawable/circle_bg"
         android:clipToOutline="true"

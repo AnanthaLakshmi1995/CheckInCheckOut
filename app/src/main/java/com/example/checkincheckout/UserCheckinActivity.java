@@ -114,7 +114,6 @@ public class UserCheckinActivity extends AppCompatActivity {
             db.insertAttendance(userName, time, currentDate, "");
 
             Toast.makeText(this, "Check-In Successfully", Toast.LENGTH_SHORT).show();
-            setReminder(this, 8, 45, 1, "checkin");
 
 
         } else {
@@ -128,7 +127,6 @@ public class UserCheckinActivity extends AppCompatActivity {
             String workingHours = calculateWorkingHours(checkInTime, time);
             db.updateCheckOut(userName, time, workingHours);
 
-            setReminder(this, 17, 45, 2, "checkout");
             //Toast.makeText(this, "Checked Out\nWorking Hours: " + workingHours, Toast.LENGTH_LONG).show();
            Toast.makeText(this, "Checked Out Successfully", Toast.LENGTH_SHORT).show();
 
@@ -300,32 +298,6 @@ public class UserCheckinActivity extends AppCompatActivity {
         } catch (Exception e) {
             return "0 hrs";
         }
-    }
-    private void setReminder(Context context, int hour, int minute, int requestCode, String type) {
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
-        calendar.set(Calendar.SECOND, 0);
-
-        Intent intent = new Intent(context, ReminderReceiver.class);
-        intent.putExtra("type", type);
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                requestCode,
-                intent,
-                PendingIntent.FLAG_IMMUTABLE
-        );
-
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-
-        alarmManager.setRepeating(
-                AlarmManager.RTC_WAKEUP,
-                calendar.getTimeInMillis(),
-                AlarmManager.INTERVAL_DAY,
-                pendingIntent
-        );
     }
 
 }

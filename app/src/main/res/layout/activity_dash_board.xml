@@ -7,7 +7,7 @@
     android:fitsSystemWindows="true"
     android:paddingTop="24dp"
     android:orientation="vertical"
-    android:background="#87CEEB"
+    android:background="?android:colorBackground"
     tools:context=".DashBoardActivity">
 
     <TextView
@@ -25,15 +25,15 @@
         android:layout_width="350dp"
         android:layout_marginTop="65dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-
-        android:hint="Username">
+        android:layout_gravity="center">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
+            android:hint="Username:"
+
             android:drawableStart="@drawable/profile"
             android:inputType="textPersonName" />
 
@@ -42,12 +42,13 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+
         app:endIconMode="password_toggle">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
+            android:hint="Password:"
             android:drawableStart="@drawable/lock"
             android:inputType="textPassword"/>
 

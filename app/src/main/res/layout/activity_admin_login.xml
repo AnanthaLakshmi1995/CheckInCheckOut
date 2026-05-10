@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="25dp"
-    android:background="#87CEEB"
+    android:background="?android:colorBackground"
     android:orientation="vertical">
     <TextView
         android:id="@+id/Title"
@@ -25,15 +25,14 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_marginTop="65dp"
-        android:layout_height="wrap_content"
-
-        android:hint="Username">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:drawableStart="@drawable/profile"
+            android:hint="Username:"
 
             android:inputType="textPersonName"/>
 
@@ -41,6 +40,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+
         app:endIconMode="password_toggle">
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/Password"

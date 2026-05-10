@@ -1,11 +1,8 @@
 <resources>
     <style name="Theme.CheckInCheckOut" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <item name="colorPrimary">@color/primary</item>
         <item name="colorOnPrimary">@color/white</item>
 
         <item name="android:colorBackground">@color/background</item>
-
-        <!-- ADD THESE (missing = crash) -->
         <item name="colorOnBackground">@color/text_primary</item>
         <item name="colorSurface">@color/surface</item>
         <item name="colorOnSurface">@color/text_primary</item>

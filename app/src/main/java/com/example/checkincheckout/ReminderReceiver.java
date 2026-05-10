@@ -19,51 +19,81 @@ public class ReminderReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
 
         String type = intent.getStringExtra("type");
+
         Log.d("REMINDER", "Triggered → " + type);
 
         Calendar now = Calendar.getInstance();
+
         int day = now.get(Calendar.DAY_OF_WEEK);
 
-        if (day == Calendar.FRIDAY || day == Calendar.SATURDAY) {
+        // Skip Friday & Saturday
+        if (day == Calendar.FRIDAY ||
+                day == Calendar.SATURDAY) {
+
             Log.d("REMINDER", "Weekend skip");
+
             scheduleNext(context, type);
+
             return;
         }
 
         DataBase db = DataBase.getInstance(context);
 
-        String today = new SimpleDateFormat("dd-MM-yyyy", Locale.getDefault())
-                .format(new Date());
+        String today = new SimpleDateFormat(
+                "dd-MM-yyyy",
+                Locale.getDefault()
+        ).format(new Date());
 
         Cursor cursor = db.getAllUserEmails();
 
         if (cursor != null && cursor.moveToFirst()) {
+
             do {
+
                 String email = cursor.getString(0);
+
                 String username = cursor.getString(1);
 
                 if ("checkin".equals(type)) {
 
-                    boolean checkedIn = db.hasCheckedInToday(username, today);
+                    boolean checkedIn =
+                            db.hasCheckedInToday(
+                                    username,
+                                    today
+                            );
 
                     if (!checkedIn) {
+
                         EmailHelper.sendEmail(
                                 email,
                                 "Check-In Reminder",
-                                "Hello " + username + ",\n\nPlease check in."
+                                "Hello " + username +
+                                        ",\nPlease check in."
                         );
+
+                        Log.d("REMINDER",
+                                "Check-in mail sent to → " + email);
                     }
 
                 } else if ("checkout".equals(type)) {
 
-                    boolean checkedOut = db.hasCheckedOutToday(username, today);
+                    boolean checkedOut =
+                            db.hasCheckedOutToday(
+                                    username,
+                                    today
+                            );
 
                     if (!checkedOut) {
+
                         EmailHelper.sendEmail(
                                 email,
                                 "Check-Out Reminder",
-                                "Hello " + username + ",\n\nPlease check out."
+                                "Hello " + username +
+                                        ",\nPlease check out."
                         );
+
+                        Log.d("REMINDER",
+                                "Check-out mail sent to → " + email);
                     }
                 }
 
@@ -72,32 +102,44 @@ public class ReminderReceiver extends BroadcastReceiver {
             cursor.close();
         }
 
-
         scheduleNext(context, type);
     }
-
     private void scheduleNext(Context context, String type) {
 
-        Calendar next = Calendar.getInstance();
-
+        Calendar calendar = Calendar.getInstance();
         if ("checkin".equals(type)) {
-            next.set(Calendar.HOUR_OF_DAY, 8);
-            next.set(Calendar.MINUTE,45);
+            calendar.set(Calendar.HOUR_OF_DAY, 8);
+            calendar.set(Calendar.MINUTE,45 );
         } else {
-            next.set(Calendar.HOUR_OF_DAY, 17);
-            next.set(Calendar.MINUTE, 45);
+            calendar.set(Calendar.HOUR_OF_DAY, 17);
+            calendar.set(Calendar.MINUTE, 45);
         }
 
-        next.set(Calendar.SECOND, 0);
-        next.set(Calendar.MILLISECOND, 0);
 
-        // move to next day
-        next.add(Calendar.DAY_OF_MONTH, 1);
+        // If time already passed today → move to next day
+        if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+        }
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+
+        // Skip Friday and Saturday
+        while (day == Calendar.FRIDAY || day == Calendar.SATURDAY) {
+
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+
+            day = calendar.get(Calendar.DAY_OF_WEEK);
+        }
+
+        Log.d("REMINDER", "Next scheduled for → " + calendar.getTime());
+
+        AlarmManager alarmManager =
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Intent intent = new Intent(context, ReminderReceiver.class);
+
         intent.putExtra("type", type);
+
         intent.setAction(type);
 
         int requestCode = type.equals("checkin") ? 1 : 2;
@@ -106,15 +148,18 @@ public class ReminderReceiver extends BroadcastReceiver {
                 context,
                 requestCode,
                 intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
+                PendingIntent.FLAG_UPDATE_CURRENT |
+                        PendingIntent.FLAG_IMMUTABLE
         );
 
         alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
-                next.getTimeInMillis(),
+                calendar.getTimeInMillis(),
                 pendingIntent
         );
 
-        Log.d("REMINDER", "Next scheduled for → " + next.getTime());
+        Log.d("REMINDER", "Alarm set for → " + calendar.getTime());
     }
+
+
 }
