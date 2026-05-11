@@ -1,12 +1,14 @@
 package com.example.checkincheckout;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,11 +25,31 @@ public class DashBoardActivity extends AppCompatActivity {
     EditText username,password;
     //Button checkin;
     DataBase db;
+    LinearLayout mainLayout;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dash_board);
+        mainLayout = findViewById(R.id.mainLayout);
+
+        SharedPreferences prefs =
+                getSharedPreferences("theme", MODE_PRIVATE);
+
+        boolean darkMode =
+                prefs.getBoolean("darkMode", false);
+
+        if (darkMode) {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.dark_bg));
+
+        } else {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.white));
+        }
         username = findViewById(R.id.Username);
         password = findViewById(R.id.Password);
         login = findViewById(R.id.Login);

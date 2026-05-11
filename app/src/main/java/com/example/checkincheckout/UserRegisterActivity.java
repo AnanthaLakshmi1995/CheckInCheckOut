@@ -31,11 +31,30 @@ public class UserRegisterActivity extends AppCompatActivity {
     Button registerBtn,camera ;
     Bitmap capturedFaceBitmap = null;
     DataBase db;
+    LinearLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
+        mainLayout = findViewById(R.id.mainLayout);
+
+        SharedPreferences prefs =
+                getSharedPreferences("theme", MODE_PRIVATE);
+
+        boolean darkMode =
+                prefs.getBoolean("darkMode", false);
+
+        if (darkMode) {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.dark_bg));
+
+        } else {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.white));
+        }
         db = DataBase.getInstance(this);
         userName = findViewById(R.id.UserName);
         userEmail = findViewById(R.id.UserEmail);
@@ -59,7 +78,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                         .show();
             }
         });
-        SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+       // SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
 
         prefs.edit()
                 .putString("username", userName.getText().toString().trim())

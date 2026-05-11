@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "353837991583",
+    "project_id": "checkincheckout-da6ee",
+    "storage_bucket": "checkincheckout-da6ee.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:353837991583:android:1135a6292cc78fa95184aa",
+        "android_client_info": {
+          "package_name": "com.example.checkincheckout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcIYL5_UPLxNJ03ozp52ch7e3CPwcv_0k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

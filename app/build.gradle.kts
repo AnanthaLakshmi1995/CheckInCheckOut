@@ -1,6 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -68,6 +69,7 @@ dependencies {
     implementation(libs.androidx.work.runtime)
     implementation("com.sun.mail:android-mail:1.6.7")
     implementation("com.sun.mail:android-activation:1.6.7")
+    implementation(libs.firebase.messaging)
     testImplementation(libs.junit)
     implementation("androidx.work:work-runtime:2.9.0")
     implementation("com.google.mlkit:text-recognition:16.0.1")
@@ -86,7 +88,8 @@ dependencies {
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.tooling)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
-
+    implementation("com.google.firebase:firebase-messaging:24.0.1")
+    implementation("com.google.firebase:firebase-messaging:24.0.1")
 
 
 }

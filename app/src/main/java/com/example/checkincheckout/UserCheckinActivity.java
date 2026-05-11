@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -52,13 +53,31 @@ public class UserCheckinActivity extends AppCompatActivity {
     double officeLng = 82.018323;
 
     boolean isCheckIn = true;
+    LinearLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_user_checkin);
+        mainLayout = findViewById(R.id.mainLayout);
 
+        SharedPreferences prefs =
+                getSharedPreferences("theme", MODE_PRIVATE);
+
+        boolean darkMode =
+                prefs.getBoolean("darkMode", false);
+
+        if (darkMode) {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.dark_bg));
+
+        } else {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.white));
+        }
         capturedImage = findViewById(R.id.capturedImage);
         btnCheckIn = findViewById(R.id.CheckIn);
         btnCheckOut = findViewById(R.id.CheckOut);

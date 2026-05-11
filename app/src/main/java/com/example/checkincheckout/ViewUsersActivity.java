@@ -2,6 +2,7 @@ package com.example.checkincheckout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -32,12 +34,31 @@ public class ViewUsersActivity extends AppCompatActivity {
     ArrayList<UserModel> displayList = new ArrayList<>();
 
     DataBase db;
+    LinearLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_users);
+        mainLayout = findViewById(R.id.mainLayout);
+
+        SharedPreferences prefs =
+                getSharedPreferences("theme", MODE_PRIVATE);
+
+        boolean darkMode =
+                prefs.getBoolean("darkMode", false);
+
+        if (darkMode) {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.dark_bg));
+
+        } else {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.white));
+        }
         searchuser = findViewById(R.id.searchUser);
         recyclerView = findViewById(R.id.recycleUsers);
         logout=findViewById(R.id.Logout);

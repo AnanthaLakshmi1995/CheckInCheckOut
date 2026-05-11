@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.activity.OnBackPressedCallback;
@@ -19,12 +20,31 @@ public class UserLoginActivity extends AppCompatActivity {
     Button loginBtn;
 
     DataBase db;
+    LinearLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
+        mainLayout = findViewById(R.id.mainLayout);
+
+        SharedPreferences prefs =
+                getSharedPreferences("theme", MODE_PRIVATE);
+
+        boolean darkMode =
+                prefs.getBoolean("darkMode", false);
+
+        if (darkMode) {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.dark_bg));
+
+        } else {
+
+            mainLayout.setBackgroundColor(
+                    getResources().getColor(R.color.white));
+        }
         userName = findViewById(R.id.Username);
         userPassword = findViewById(R.id.Password);
        loginBtn = findViewById(R.id.Login);
@@ -50,7 +70,6 @@ public class UserLoginActivity extends AppCompatActivity {
             if (db.loginUser(name, pass))
             {
                 Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
-                SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
                 //SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
                 prefs.edit().putString("username", name).apply();
                 //SharedPreferences prefs = context.getSharedPreferences("user", Context.MODE_PRIVATE);
