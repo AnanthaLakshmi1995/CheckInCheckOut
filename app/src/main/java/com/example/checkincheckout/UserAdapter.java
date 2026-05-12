@@ -2,6 +2,8 @@ package com.example.checkincheckout;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,7 +37,37 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        SharedPreferences prefs =
+                context.getSharedPreferences("theme",
+                        Context.MODE_PRIVATE);
 
+        boolean darkMode =
+                prefs.getBoolean("darkMode", false);
+
+        if (darkMode) {
+
+            holder.itemView.setBackgroundColor(
+                    context.getResources().getColor(R.color.dark_bg));
+
+            holder.name.setTextColor(Color.BLACK);
+            holder.email.setTextColor(Color.BLACK);
+
+            holder.pass.setTextColor(Color.BLACK);
+
+            holder.phone.setTextColor(Color.BLACK);
+
+
+        } else {
+
+            holder.itemView.setBackgroundColor(Color.WHITE);
+            holder.name.setTextColor(Color.BLACK);
+            holder.email.setTextColor(Color.BLACK);
+
+            holder.pass.setTextColor(Color.BLACK);
+
+            holder.phone.setTextColor(Color.BLACK);
+
+        }
         UserModel model = list.get(position);
 
         holder.name.setText("Username: " +model.getUsername());

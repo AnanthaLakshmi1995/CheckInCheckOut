@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.text.BreakIterator;
 
-public class UserLoginActivity extends AppCompatActivity {
+public class UserLoginActivity extends BaseActivity {
 
     EditText userName, userPassword;
     Button loginBtn;
@@ -28,23 +28,8 @@ public class UserLoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_login);
         mainLayout = findViewById(R.id.mainLayout);
-
-        SharedPreferences prefs =
+        SharedPreferences pref =
                 getSharedPreferences("theme", MODE_PRIVATE);
-
-        boolean darkMode =
-                prefs.getBoolean("darkMode", false);
-
-        if (darkMode) {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.dark_bg));
-
-        } else {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.white));
-        }
         userName = findViewById(R.id.Username);
         userPassword = findViewById(R.id.Password);
        loginBtn = findViewById(R.id.Login);
@@ -71,7 +56,7 @@ public class UserLoginActivity extends AppCompatActivity {
             {
                 Toast.makeText(this, "Login Successful!", Toast.LENGTH_SHORT).show();
                 //SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
-                prefs.edit().putString("username", name).apply();
+                pref.edit().putString("username", name).apply();
                 //SharedPreferences prefs = context.getSharedPreferences("user", Context.MODE_PRIVATE);
                // prefs.edit().putString("username", actualUsername).apply();
                 //ReminderReceiver.scheduleReminders(context);

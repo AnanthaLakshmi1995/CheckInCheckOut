@@ -3,14 +3,8 @@
     android:height="24dp"
     android:viewportWidth="24"
     android:viewportHeight="24">
-    <style name="Theme.CheckInCheckout" parent="Theme.Material3.DayNight.NoActionBar">
-
-        <item name="colorPrimary">#1E3A5F</item>
-        <item name="android:windowBackground">#000000</item>
-
-    </style>
     <path
-        android:fillColor="#7272"
-
-        android:pathData="M12,2A10,10 0 1,0 22,12C20.5,12.5 19,12.2 17.8,11.2C15.5,9.3 15.3,6.1 17.2,3.8C17.7,3.2 18.3,2.7 19,2.4C17.2,1.5 14.6,1.5 12,2Z"/>
+        android:fillColor="#000000"
+        android:pathData="M12,3c-4.97,0 -9,4.03 -9,9s4.03,9 9,9 9,-4.03 9,-9c0,-0.46 -0.04,-0.92 -0.1,-1.36 -0.98,1.37 -2.58,2.26 -4.4,2.26 -2.98,0
+  -5.4,-2.42 -5.4,-5.4 0,-1.81 0.89,-3.42 2.26,-4.4 -0.44,-0.06 -0.9,-0.1 -1.36,-0.1z"/>
 </vector>

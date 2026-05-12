@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AdminLoginActivity extends AppCompatActivity {
+public class AdminLoginActivity extends BaseActivity {
     EditText adminName, adminPassword;
     Button loginBtn;
 
@@ -23,23 +23,9 @@ LinearLayout mainLayout;
             setContentView(R.layout.activity_admin_login);
         mainLayout = findViewById(R.id.mainLayout);
 
-        SharedPreferences prefs =
-                getSharedPreferences("theme", MODE_PRIVATE);
 
-        boolean darkMode =
-                prefs.getBoolean("darkMode", false);
 
-        if (darkMode) {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.dark_bg));
-
-        } else {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.white));
-        }
-            adminName = findViewById(R.id.Username);
+        adminName = findViewById(R.id.Username);
             adminPassword = findViewById(R.id.Password);
             loginBtn = findViewById(R.id.Login);
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {

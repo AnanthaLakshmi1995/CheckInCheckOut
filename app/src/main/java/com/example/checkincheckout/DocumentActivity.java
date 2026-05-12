@@ -26,7 +26,7 @@ import com.google.mlkit.vision.text.TextRecognizer;
 
 import java.io.File;
 
-public class DocumentActivity extends AppCompatActivity {
+public class DocumentActivity extends BaseActivity {
 
     private static final int REQUEST_IMAGE = 101;
     private Uri imageUri;
@@ -42,22 +42,8 @@ LinearLayout mainLayout;
         setContentView(R.layout.activity_document);
         mainLayout = findViewById(R.id.mainLayout);
 
-        SharedPreferences prefs =
-                getSharedPreferences("theme", MODE_PRIVATE);
 
-        boolean darkMode =
-                prefs.getBoolean("darkMode", false);
 
-        if (darkMode) {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.dark_bg));
-
-        } else {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.white));
-        }
         // 🔥 Correct IDs (IMPORTANT)
         imgDoc = findViewById(R.id.imgDoc);
         txtResult = findViewById(R.id.Result);

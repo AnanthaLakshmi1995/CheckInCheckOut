@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ViewUsersActivity extends AppCompatActivity {
+public class ViewUsersActivity extends BaseActivity {
 
     RecyclerView recyclerView;
     UserAdapter adapter;
@@ -42,23 +42,6 @@ public class ViewUsersActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_users);
         mainLayout = findViewById(R.id.mainLayout);
-
-        SharedPreferences prefs =
-                getSharedPreferences("theme", MODE_PRIVATE);
-
-        boolean darkMode =
-                prefs.getBoolean("darkMode", false);
-
-        if (darkMode) {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.dark_bg));
-
-        } else {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.white));
-        }
         searchuser = findViewById(R.id.searchUser);
         recyclerView = findViewById(R.id.recycleUsers);
         logout=findViewById(R.id.Logout);
@@ -151,5 +134,11 @@ public class ViewUsersActivity extends AppCompatActivity {
 
         adapter = new UserAdapter(this, displayList);
         recyclerView.setAdapter(adapter);
+    }
+    protected void onResume() {
+        super.onResume();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+        }
     }
 }

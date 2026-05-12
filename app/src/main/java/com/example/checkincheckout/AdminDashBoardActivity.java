@@ -14,7 +14,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class AdminDashBoardActivity extends AppCompatActivity {
+public class AdminDashBoardActivity extends BaseActivity {
     Button viewUsers, viewAttendance, logout, reports;
 LinearLayout mainLayout;
     @Override
@@ -24,22 +24,6 @@ LinearLayout mainLayout;
         setContentView(R.layout.activity_admin_dash_board);
         mainLayout = findViewById(R.id.mainLayout);
 
-        SharedPreferences prefs =
-                getSharedPreferences("theme", MODE_PRIVATE);
-
-        boolean darkMode =
-                prefs.getBoolean("darkMode", false);
-
-        if (darkMode) {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.dark_bg));
-
-        } else {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.white));
-        }
         viewUsers = findViewById(R.id.ViewUsers);
         viewAttendance = findViewById(R.id.ViewAttendance);
         logout = findViewById(R.id.Logout);

@@ -38,7 +38,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
-public class UserCheckinActivity extends AppCompatActivity {
+public class UserCheckinActivity extends BaseActivity {
 
     ImageView capturedImage;
     Button btnCheckIn, btnCheckOut, cameraBtn;
@@ -61,23 +61,6 @@ public class UserCheckinActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_user_checkin);
         mainLayout = findViewById(R.id.mainLayout);
-
-        SharedPreferences prefs =
-                getSharedPreferences("theme", MODE_PRIVATE);
-
-        boolean darkMode =
-                prefs.getBoolean("darkMode", false);
-
-        if (darkMode) {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.dark_bg));
-
-        } else {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.white));
-        }
         capturedImage = findViewById(R.id.capturedImage);
         btnCheckIn = findViewById(R.id.CheckIn);
         btnCheckOut = findViewById(R.id.CheckOut);

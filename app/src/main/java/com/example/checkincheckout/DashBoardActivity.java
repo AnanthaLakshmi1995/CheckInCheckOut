@@ -20,7 +20,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-public class DashBoardActivity extends AppCompatActivity {
+public class DashBoardActivity extends BaseActivity {
     Button user,login,capture;
     EditText username,password;
     //Button checkin;
@@ -30,26 +30,9 @@ public class DashBoardActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
+        //EdgeToEdge.enable(this);
         setContentView(R.layout.activity_dash_board);
         mainLayout = findViewById(R.id.mainLayout);
-
-        SharedPreferences prefs =
-                getSharedPreferences("theme", MODE_PRIVATE);
-
-        boolean darkMode =
-                prefs.getBoolean("darkMode", false);
-
-        if (darkMode) {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.dark_bg));
-
-        } else {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.white));
-        }
         username = findViewById(R.id.Username);
         password = findViewById(R.id.Password);
         login = findViewById(R.id.Login);

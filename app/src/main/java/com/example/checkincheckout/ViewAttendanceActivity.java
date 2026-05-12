@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class ViewAttendanceActivity extends AppCompatActivity {
+public class ViewAttendanceActivity extends BaseActivity {
 
     RecyclerView recyclerView;
     AttendanceAdapter adapter;
@@ -42,23 +42,6 @@ LinearLayout mainLayout;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_attendance);
         mainLayout = findViewById(R.id.mainLayout);
-
-        SharedPreferences prefs =
-                getSharedPreferences("theme", MODE_PRIVATE);
-
-        boolean darkMode =
-                prefs.getBoolean("darkMode", false);
-
-        if (darkMode) {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.dark_bg));
-
-        } else {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.white));
-        }
         recyclerView = findViewById(R.id.recyclerAttendance);
         searchuser = findViewById(R.id.searchUser);
         filter = findViewById(R.id.filter);

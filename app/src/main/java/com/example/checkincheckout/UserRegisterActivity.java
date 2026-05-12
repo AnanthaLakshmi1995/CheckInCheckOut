@@ -24,7 +24,7 @@ import org.w3c.dom.Text;
 import java.io.ByteArrayOutputStream;
 import java.util.Calendar;
 import android.content.Context;
-public class UserRegisterActivity extends AppCompatActivity {
+public class UserRegisterActivity extends BaseActivity {
     private static final int CAMERA_REQUEST = 100;
     EditText userName, userEmail,userPhone,userPass;
     ImageView  faceImage,tickMark;
@@ -37,33 +37,16 @@ public class UserRegisterActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_register);
-        mainLayout = findViewById(R.id.mainLayout);
-
-        SharedPreferences prefs =
-                getSharedPreferences("theme", MODE_PRIVATE);
-
-        boolean darkMode =
-                prefs.getBoolean("darkMode", false);
-
-        if (darkMode) {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.dark_bg));
-
-        } else {
-
-            mainLayout.setBackgroundColor(
-                    getResources().getColor(R.color.white));
-        }
         db = DataBase.getInstance(this);
         userName = findViewById(R.id.UserName);
         userEmail = findViewById(R.id.UserEmail);
-        userPhone=findViewById(R.id.Phone);
+        userPhone = findViewById(R.id.Phone);
         camera = findViewById(R.id.Camera);
-        userPass=findViewById(R.id.Password);
+        userPass = findViewById(R.id.Password);
         faceImage = findViewById(R.id.FaceImage);
         tickMark = findViewById(R.id.tickMark);
         registerBtn = findViewById(R.id.Register);
+        mainLayout = findViewById(R.id.mainLayout);
         //gotoBtn = findViewById(R.id.CheckinCheckout);
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -78,7 +61,7 @@ public class UserRegisterActivity extends AppCompatActivity {
                         .show();
             }
         });
-       // SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
+        SharedPreferences prefs = getSharedPreferences("user", MODE_PRIVATE);
 
         prefs.edit()
                 .putString("username", userName.getText().toString().trim())
@@ -100,10 +83,11 @@ public class UserRegisterActivity extends AppCompatActivity {
 
         } else {
 
-            setReminder(this, 8, 45, 1, "checkin");
+            setReminder(this, 8, 45 , 1, "checkin");
 
             setReminder(this, 17, 45, 2, "checkout");
         }
+
     }
     private void openCamera()
     {
