@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.provider.Settings;
 import android.util.Base64;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.*;
@@ -31,7 +32,6 @@ public class UserRegisterActivity extends BaseActivity {
     Button registerBtn,camera ;
     Bitmap capturedFaceBitmap = null;
     DataBase db;
-    LinearLayout mainLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +40,32 @@ public class UserRegisterActivity extends BaseActivity {
         db = DataBase.getInstance(this);
         userName = findViewById(R.id.UserName);
         userEmail = findViewById(R.id.UserEmail);
-        userPhone = findViewById(R.id.Phone);
+        userPhone=findViewById(R.id.Phone);
         camera = findViewById(R.id.Camera);
-        userPass = findViewById(R.id.Password);
+        userPass=findViewById(R.id.Password);
         faceImage = findViewById(R.id.FaceImage);
         tickMark = findViewById(R.id.tickMark);
         registerBtn = findViewById(R.id.Register);
-        mainLayout = findViewById(R.id.mainLayout);
+        Calendar testTime = Calendar.getInstance();
+        testTime.add(Calendar.MINUTE, 1);
+
+        AlarmManager alarmManager = (AlarmManager)
+                getSystemService(Context.ALARM_SERVICE);
+        Intent testIntent = new Intent(this, ReminderReceiver.class);
+        testIntent.setAction("checkin");
+        testIntent.putExtra("type", "checkin");
+
+        PendingIntent testPI = PendingIntent.getBroadcast(
+                this, 999, testIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT |
+                        PendingIntent.FLAG_IMMUTABLE);
+
+        alarmManager.setExactAndAllowWhileIdle(
+                AlarmManager.RTC_WAKEUP,
+                testTime.getTimeInMillis(),
+                testPI);
+
+        Log.d("REMINDER", "Test alarm set for " + testTime.getTime());
         //gotoBtn = findViewById(R.id.CheckinCheckout);
         getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
             @Override
@@ -70,24 +89,48 @@ public class UserRegisterActivity extends BaseActivity {
         camera.setOnClickListener(v -> openCamera());
         registerBtn.setOnClickListener(v -> registerUser());
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-
-            AlarmManager alarmManager =
-                    (AlarmManager) getSystemService(Context.ALARM_SERVICE);
-
             if (alarmManager.canScheduleExactAlarms()) {
 
+                // Test alarm (1 minute from now)
+                Calendar cal = Calendar.getInstance();
+                cal.add(Calendar.MINUTE, 1);
+
+                Intent intent = new Intent(this, ReminderReceiver.class);
+                intent.setAction("checkin");
+                intent.putExtra("type", "checkin");
+
+                PendingIntent pen = PendingIntent.getBroadcast(
+                        this, 999, testIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT |
+                                PendingIntent.FLAG_IMMUTABLE);
+
+                alarmManager.setExactAndAllowWhileIdle(
+                        AlarmManager.RTC_WAKEUP,
+                        cal.getTimeInMillis(),
+                        pen);
+
+                Log.d("REMINDER", "Test alarm set for " + testTime.getTime());
+                cal.add(Calendar.MINUTE, 1);   // fires 1 min from now
+
+                setReminder(this,
+                        cal.get(Calendar.HOUR_OF_DAY),
+                        cal.get(Calendar.MINUTE),
+                        2, "checkout");
+
+                Log.d("REMINDER", "TEST checkout alarm set for " + cal.getTime());
                 setReminder(this, 8, 45, 1, "checkin");
-
                 setReminder(this, 17, 45, 2, "checkout");
+            } else {
+                // Send to settings to grant permission
+                startActivity(new Intent(Settings.ACTION_REQUEST_SCHEDULE_EXACT_ALARM));
+                Toast.makeText(this,
+                        "Please allow exact alarm permission",
+                        Toast.LENGTH_LONG).show();
             }
-
         } else {
-
-            setReminder(this, 8, 45 , 1, "checkin");
-
+            setReminder(this, 8, 45, 1, "checkin");
             setReminder(this, 17, 45, 2, "checkout");
         }
-
     }
     private void openCamera()
     {
@@ -218,33 +261,46 @@ public class UserRegisterActivity extends BaseActivity {
         Bitmap cropped = Bitmap.createBitmap(rotated, x, y, size, size);
         return Bitmap.createScaledBitmap(cropped, 200, 200, true);
     }
+    private void setReminder(Context context, int hour, int minute,
+                             int requestCode, String type) {
 
-    private void setReminder(Context context, int hour, int minute, int requestCode, String type) {
+        AlarmManager alarmManager =
+                (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
         Intent intent = new Intent(context, ReminderReceiver.class);
         intent.putExtra("type", type);
         intent.setAction(type);
+
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                context,
-                requestCode,
-                intent,
-                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE
-        );
+                context, requestCode, intent,
+                PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         alarmManager.cancel(pendingIntent);
+
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.HOUR_OF_DAY, hour);
-        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.MINUTE, minute);   // ← FIXED (was hardcoded to 2)
         calendar.set(Calendar.SECOND, 0);
 
+        // If today's time already passed → move to tomorrow
         if (calendar.getTimeInMillis() <= System.currentTimeMillis()) {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
+
+        // Skip Friday/Saturday for first fire
+        int day = calendar.get(Calendar.DAY_OF_WEEK);
+        while (day == Calendar.FRIDAY || day == Calendar.SATURDAY) {
+            calendar.add(Calendar.DAY_OF_MONTH, 1);
+            day = calendar.get(Calendar.DAY_OF_WEEK);
+        }
+
         alarmManager.setExactAndAllowWhileIdle(
                 AlarmManager.RTC_WAKEUP,
                 calendar.getTimeInMillis(),
-                pendingIntent
-        );
+                pendingIntent);
+
+        Log.d("REMINDER",
+                type + " alarm scheduled for " + calendar.getTime());
     }
+
 }

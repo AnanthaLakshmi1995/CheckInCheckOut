@@ -7,6 +7,7 @@
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM" />
     <uses-permission android:name="android.permission.INTERNET" />
+   <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -74,7 +75,7 @@
         <receiver
             android:name=".ReminderReceiver"
             android:enabled="true"
-            android:exported="true" /> <!-- Launcher Activity -->
+            android:exported="false" /> <!-- Launcher Activity -->
         <activity
             android:name=".WelcomeActivity"
             android:exported="true"

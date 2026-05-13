@@ -11,7 +11,7 @@ import android.util.Log;
 
 public class DataBase extends SQLiteOpenHelper {
 
-    public static final String DB_NAME = "checkinout.db";
+    public static final String DB_NAME = "checkincheckout.db";
     private static DataBase instance;
 
     public static synchronized DataBase getInstance(Context context) {
